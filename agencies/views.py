@@ -1,6 +1,26 @@
+import urllib.request
+import urllib.parse
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Avg
+from django.conf import settings
 from .models import Agency, Category, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage
+
+
+def _verify_recaptcha(token, min_score=0.5):
+    if not settings.RECAPTCHA_SECRET_KEY or not token:
+        return True
+    data = urllib.parse.urlencode({
+        'secret': settings.RECAPTCHA_SECRET_KEY,
+        'response': token,
+    }).encode()
+    try:
+        with urllib.request.urlopen('https://www.google.com/recaptcha/api/siteverify', data, timeout=5) as resp:
+            result = json.loads(resp.read())
+        return result.get('success') and result.get('score', 0) >= min_score
+    except Exception:
+        return True
 
 
 def index(request):
@@ -122,15 +142,24 @@ def privacy(request):
 
 
 def feedback(request):
+    recaptcha_error = False
     if request.method == "POST":
         name = request.POST.get("name", "").strip()
         email = request.POST.get("email", "").strip()
         subject = request.POST.get("subject", "").strip()
         message = request.POST.get("message", "").strip()
+        token = request.POST.get("g-recaptcha-response", "")
         if name and email and message:
-            FeedbackMessage.objects.create(
-                name=name, email=email, subject=subject, message=message
-            )
-            return redirect("/feedback/?sent=1")
+            if _verify_recaptcha(token):
+                FeedbackMessage.objects.create(
+                    name=name, email=email, subject=subject, message=message
+                )
+                return redirect("/feedback/?sent=1")
+            else:
+                recaptcha_error = True
     sent = request.GET.get("sent") == "1"
-    return render(request, "agencies/feedback.html", {"sent": sent})
+    return render(request, "agencies/feedback.html", {
+        "sent": sent,
+        "recaptcha_error": recaptcha_error,
+        "recaptcha_site_key": settings.RECAPTCHA_SITE_KEY,
+    })

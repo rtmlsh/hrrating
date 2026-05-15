@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Обратная связь — HR Rating</title>
+  {% if recaptcha_site_key %}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+  {% endif %}
   <meta name="description" content="Форма обратной связи — HR Rating">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap');
@@ -313,8 +316,14 @@
     <span class="eyebrow">Контакты</span>
     <div class="card-title">Обратная связь</div>
     <p class="card-sub">Есть вопрос, предложение или хотите добавить агентство? Напишите нам — ответим в течение пары дней.</p>
-    <form method="post" action="/feedback/">
+    {% if recaptcha_error %}
+    <div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;padding:12px 16px;margin-bottom:20px;font-size:14px;color:#dc2626;">
+      Не удалось пройти проверку. Попробуйте ещё раз.
+    </div>
+    {% endif %}
+    <form method="post" action="/feedback/" id="feedback-form">
       {% csrf_token %}
+      <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
       <div class="form-group">
         <label for="name">Ваше имя<span class="req">*</span></label>
         <input type="text" id="name" name="name" placeholder="Иван Иванов" required maxlength="150">
@@ -331,8 +340,22 @@
         <label for="message">Сообщение<span class="req">*</span></label>
         <textarea id="message" name="message" placeholder="Опишите ваш вопрос или предложение…" required></textarea>
       </div>
-      <button type="submit" class="btn">Отправить сообщение</button>
+      <button type="submit" class="btn" id="submit-btn">Отправить сообщение</button>
     </form>
+    {% if recaptcha_site_key %}
+    <script>
+      document.getElementById('feedback-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var form = this;
+        grecaptcha.ready(function() {
+          grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'feedback'}).then(function(token) {
+            document.getElementById('g-recaptcha-response').value = token;
+            form.submit();
+          });
+        });
+      });
+    </script>
+    {% endif %}
     {% endif %}
   </div>
 </main>
