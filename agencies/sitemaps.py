@@ -1,10 +1,12 @@
+from datetime import date
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from .models import CityPage
 
+LAST_UPDATED = date(2026, 5, 16)
+
 
 class StaticSitemap(Sitemap):
-    changefreq = "weekly"
     priority = 1.0
 
     def items(self):
@@ -13,9 +15,11 @@ class StaticSitemap(Sitemap):
     def location(self, item):
         return reverse(item)
 
+    def lastmod(self, item):
+        return LAST_UPDATED
+
 
 class CityPageSitemap(Sitemap):
-    changefreq = "weekly"
     priority = 0.9
 
     def items(self):
@@ -25,4 +29,4 @@ class CityPageSitemap(Sitemap):
         return obj.get_absolute_url()
 
     def lastmod(self, obj):
-        return None
+        return LAST_UPDATED
