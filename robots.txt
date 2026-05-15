@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /feedback/?sent=1
+
+Sitemap: https://luchshie-hr-agentstva.pro/sitemap.xml
