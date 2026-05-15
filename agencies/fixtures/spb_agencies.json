@@ -1,0 +1,134 @@
+[
+  {"model": "agencies.agency", "pk": 20, "fields": {
+    "name": "Antal Russia (Санкт-Петербург)", "description": "Петербургский офис международного рекрутингового гиганта. Лидер рынка Северо-Запада в Executive Search и массовом подборе для крупных корпораций — FMCG, фарма, промышленность.",
+    "city": "Санкт-Петербург", "address": "Лиговский пр., 30, корп. 8", "phone": "+7 (812) 407-03-07",
+    "founded_year": 2001, "website": "https://antal.ru", "is_verified": true,
+    "categories": [2, 3],
+    "specializations": "Executive Search,Массовый подбор,FMCG,Фармацевтика,Топ-менеджмент",
+    "criteria_quality": 4.9, "criteria_speed": 4.8, "criteria_price": 4.3, "criteria_support": 4.9, "speed_score": 9.2,
+    "created_at": "2024-02-01T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 21, "fields": {
+    "name": "Ancor (Санкт-Петербург)", "description": "Крупнейший игрок Северо-Запада в массовом подборе и аутстаффинге. Офис в Питере закрывает сотни линейных вакансий в месяц для ритейла, логистики и производства.",
+    "city": "Санкт-Петербург", "address": "Невский пр., 38", "phone": "+7 (812) 335-45-55",
+    "founded_year": 2002, "website": "https://ancor.ru", "is_verified": true,
+    "categories": [3, 5],
+    "specializations": "Массовый подбор,Аутстаффинг,Ритейл,Логистика,Производство",
+    "criteria_quality": 4.7, "criteria_speed": 4.9, "criteria_price": 4.5, "criteria_support": 4.5, "speed_score": 9.0,
+    "created_at": "2024-02-02T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 22, "fields": {
+    "name": "TopContact (Санкт-Петербург)", "description": "Ведущее петербургское агентство Executive Search. Специализируется на поиске директоров и C-level для промышленных, строительных и энергетических компаний СЗФО.",
+    "city": "Санкт-Петербург", "address": "Каменноостровский пр., 9", "phone": "+7 (812) 336-86-00",
+    "founded_year": 1998, "website": "https://topcontact.ru", "is_verified": true,
+    "categories": [2, 4],
+    "specializations": "CEO / CFO,Промышленность,Энергетика,Строительство,Board Advisory",
+    "criteria_quality": 4.6, "criteria_speed": 4.1, "criteria_price": 4.0, "criteria_support": 4.5, "speed_score": 7.8,
+    "created_at": "2024-02-03T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 23, "fields": {
+    "name": "Прорыв — Персонал", "description": "Петербургский специалист по массовому подбору: рабочие и линейный персонал для заводов, складских комплексов и торговых сетей. Быстрое закрытие от 10 вакансий одновременно.",
+    "city": "Санкт-Петербург", "address": "ул. Салова, 61", "phone": "+7 (812) 648-22-44",
+    "founded_year": 2010, "website": "", "is_verified": true,
+    "categories": [3],
+    "specializations": "Производство,Склад / логистика,Ритейл (линейный персонал),Строительство,Транспорт",
+    "criteria_quality": 4.3, "criteria_speed": 4.9, "criteria_price": 4.7, "criteria_support": 4.0, "speed_score": 9.4,
+    "created_at": "2024-02-04T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 24, "fields": {
+    "name": "Люди Дела", "description": "Бутиковое агентство Executive Search из Санкт-Петербурга. Работает с собственниками и советами директоров, закрывает позиции уровня C-suite и независимых директоров.",
+    "city": "Санкт-Петербург", "address": "Большая Морская ул., 18", "phone": "+7 (812) 718-40-20",
+    "founded_year": 2007, "website": "", "is_verified": true,
+    "categories": [2],
+    "specializations": "CEO / COO,Совет директоров,Независимые директора,Private Equity,GR",
+    "criteria_quality": 4.6, "criteria_speed": 3.8, "criteria_price": 3.9, "criteria_support": 4.5, "speed_score": 6.8,
+    "created_at": "2024-02-05T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 25, "fields": {
+    "name": "Персонал Партнер СПб", "description": "Универсальное петербургское агентство: массовый подбор, офисный персонал и менеджеры среднего звена. Гибкие тарифы и быстрая обратная связь.",
+    "city": "Санкт-Петербург", "address": "Загородный пр., 11", "phone": "+7 (812) 244-31-80",
+    "founded_year": 2013, "website": "", "is_verified": false,
+    "categories": [3, 5],
+    "specializations": "Офисный персонал,Массовый подбор,Ритейл,Банки,Страхование",
+    "criteria_quality": 4.1, "criteria_speed": 4.4, "criteria_price": 4.6, "criteria_support": 3.9, "speed_score": 8.2,
+    "created_at": "2024-02-06T00:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 42, "fields": {"agency": 20, "rating": 5, "text": "Antal закрыли позицию генерального директора завода за 4 недели. Просто фантастика.", "author": "Евгений Р.", "created_at": "2025-11-15T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 43, "fields": {"agency": 20, "rating": 5, "text": "Массовый подбор 60 операторов для нашего производства — справились без единого срыва дедлайна.", "author": "Татьяна Б.", "created_at": "2025-10-20T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 44, "fields": {"agency": 20, "rating": 5, "text": "Лучшее агентство Петербурга по качеству кандидатов и поддержке на всех этапах.", "author": "Дмитрий К.", "created_at": "2025-09-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 45, "fields": {"agency": 21, "rating": 5, "text": "Закрыли 80 вакансий складских работников за три недели. Работают чётко.", "author": "Игорь М.", "created_at": "2025-11-10T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 46, "fields": {"agency": 21, "rating": 4, "text": "Отличный охват кандидатов, хотелось бы чуть больше фильтрации по требованиям.", "author": "Алина С.", "created_at": "2025-10-01T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 47, "fields": {"agency": 22, "rating": 5, "text": "Нашли операционного директора для нашего завода. Кандидат превзошёл ожидания.", "author": "Николай В.", "created_at": "2025-11-05T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 48, "fields": {"agency": 22, "rating": 4, "text": "Хорошие кандидаты на топ-позиции, сроки могут затянуться.", "author": "Марина П.", "created_at": "2025-09-25T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 49, "fields": {"agency": 23, "rating": 4, "text": "Набрали 30 сборщиков за 10 дней. Цена ниже рынка, качество приемлемое.", "author": "Руслан Г.", "created_at": "2025-10-28T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 50, "fields": {"agency": 23, "rating": 4, "text": "Оперативный массовый подбор для ритейла, работаем уже второй год.", "author": "Оксана Л.", "created_at": "2025-09-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 51, "fields": {"agency": 24, "rating": 5, "text": "Закрыли позицию независимого директора в совет. Импрессивный список кандидатов.", "author": "Андрей Ф.", "created_at": "2025-10-20T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 52, "fields": {"agency": 24, "rating": 4, "text": "Небольшой коллектив, но очень глубокое погружение в специфику бизнеса.", "author": "Светлана Ч.", "created_at": "2025-09-05T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 53, "fields": {"agency": 25, "rating": 4, "text": "Нашли нескольких менеджеров по продажам. Приемлемое качество за разумные деньги.", "author": "Вячеслав Н.", "created_at": "2025-11-08T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 54, "fields": {"agency": 25, "rating": 4, "text": "Удобное агентство для закрытия офисных вакансий в Питере.", "author": "Ирина Д.", "created_at": "2025-10-12T10:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 26, "fields": {
+    "name": "Апрайт (Санкт-Петербург)", "description": "Петербургская компания с фокусом на Executive Search в промышленности и машиностроении. Закрывает позиции технических директоров, главных инженеров и руководителей производств СЗФО.",
+    "city": "Санкт-Петербург", "address": "Петроградская наб., 34", "phone": "+7 (812) 325-18-18",
+    "founded_year": 2004, "website": "", "is_verified": true,
+    "categories": [2, 5],
+    "specializations": "Машиностроение,Главный инженер,Технический директор,Судостроение,ОПК",
+    "criteria_quality": 4.5, "criteria_speed": 4.0, "criteria_price": 4.2, "criteria_support": 4.4, "speed_score": 7.5,
+    "created_at": "2024-02-07T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 27, "fields": {
+    "name": "СтаффПро СПб", "description": "Специализированное агентство массового подбора для логистических операторов и e-commerce. Закрывает вакансии курьеров, комплектовщиков и водителей-экспедиторов в Петербурге и Ленинградской области.",
+    "city": "Санкт-Петербург", "address": "ул. Софийская, 14", "phone": "+7 (812) 702-55-90",
+    "founded_year": 2016, "website": "", "is_verified": true,
+    "categories": [3],
+    "specializations": "Курьерские службы,Склад / логистика,E-commerce,Водители,Комплектовщики",
+    "criteria_quality": 4.2, "criteria_speed": 4.9, "criteria_price": 4.8, "criteria_support": 3.9, "speed_score": 9.5,
+    "created_at": "2024-02-08T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 28, "fields": {
+    "name": "Imployer Северо-Запад", "description": "HR-партнёр для розничных сетей и FMCG-дистрибьюторов. Закрывает как массовые позиции (мерчандайзеры, торговые представители), так и управленческие роли: директора филиалов, коммерческие директора.",
+    "city": "Санкт-Петербург", "address": "Московский пр., 73", "phone": "+7 (812) 313-70-40",
+    "founded_year": 2011, "website": "", "is_verified": true,
+    "categories": [2, 3],
+    "specializations": "Ритейл,FMCG,Директор филиала,Коммерческий директор,Мерчандайзинг",
+    "criteria_quality": 4.4, "criteria_speed": 4.6, "criteria_price": 4.4, "criteria_support": 4.2, "speed_score": 8.7,
+    "created_at": "2024-02-09T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 29, "fields": {
+    "name": "Кадровый альянс СПб", "description": "Одно из старейших петербургских рекрутинговых агентств. Широкая экспертиза в финансах, строительстве и управлении. Сильная практика подбора финансовых директоров и главных бухгалтеров.",
+    "city": "Санкт-Петербург", "address": "Владимирский пр., 15", "phone": "+7 (812) 334-60-50",
+    "founded_year": 1997, "website": "", "is_verified": true,
+    "categories": [2, 4],
+    "specializations": "CFO / Финансовый директор,Главный бухгалтер,Строительство,Девелопмент,Управляющий директор",
+    "criteria_quality": 4.4, "criteria_speed": 3.9, "criteria_price": 4.3, "criteria_support": 4.3, "speed_score": 7.3,
+    "created_at": "2024-02-10T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 30, "fields": {
+    "name": "ТурбоПерсонал", "description": "Молодое питерское агентство нового формата: закрывает массовые вакансии для HoReCa, клининга и охраны в сжатые сроки. Работает с почасовой оплатой труда и краткосрочными договорами.",
+    "city": "Санкт-Петербург", "address": "ул. Восстания, 2", "phone": "+7 (812) 507-77-31",
+    "founded_year": 2020, "website": "", "is_verified": false,
+    "categories": [3],
+    "specializations": "HoReCa,Клининг,Охрана,Персонал на мероприятия,Аутстаффинг",
+    "criteria_quality": 3.9, "criteria_speed": 5.0, "criteria_price": 4.9, "criteria_support": 3.7, "speed_score": 9.6,
+    "created_at": "2024-02-11T00:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 55, "fields": {"agency": 26, "rating": 5, "text": "Нашли главного инженера судостроительного завода. Кандидат с нужным допуском — большая редкость.", "author": "Юрий А.", "created_at": "2025-11-02T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 56, "fields": {"agency": 26, "rating": 4, "text": "Хорошее понимание специфики ОПК, сроки чуть затянули.", "author": "Владимир К.", "created_at": "2025-09-20T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 57, "fields": {"agency": 27, "rating": 5, "text": "Закрыли 120 вакансий курьеров за 2 недели перед сезонным пиком. Спасли нас.", "author": "Антон Е.", "created_at": "2025-11-12T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 58, "fields": {"agency": 27, "rating": 4, "text": "Быстро, но стоит проверять кандидатов — часть отсеивается на испытательном.", "author": "Катерина И.", "created_at": "2025-10-05T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 59, "fields": {"agency": 28, "rating": 5, "text": "Закрыли директора петербургского филиала и параллельно набрали 15 мерчандайзеров. Удобно работать с одним агентством.", "author": "Елена О.", "created_at": "2025-10-25T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 60, "fields": {"agency": 28, "rating": 4, "text": "Хорошая база по ритейлу, оперативно реагируют на запросы.", "author": "Павел Т.", "created_at": "2025-09-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 61, "fields": {"agency": 29, "rating": 5, "text": "Работаем с ними 7 лет — надёжный партнёр по финансовым директорам.", "author": "Сергей Ю.", "created_at": "2025-11-07T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 62, "fields": {"agency": 29, "rating": 4, "text": "Закрыли CFO для девелоперского проекта. Проверенные кандидаты.", "author": "Ирина В.", "created_at": "2025-10-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 63, "fields": {"agency": 30, "rating": 4, "text": "Набрали персонал для нашего ресторана к открытию за 5 дней. Феноменальная скорость.", "author": "Максим Ж.", "created_at": "2025-11-10T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 64, "fields": {"agency": 30, "rating": 4, "text": "Для краткосрочных проектов — лучший выбор в городе.", "author": "Анастасия Л.", "created_at": "2025-10-20T10:00:00Z"}}
+]

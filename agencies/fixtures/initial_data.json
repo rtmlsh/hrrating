@@ -1,0 +1,238 @@
+[
+  {"model": "agencies.category", "pk": 1, "fields": {"name": "IT", "slug": "it"}},
+  {"model": "agencies.category", "pk": 2, "fields": {"name": "Топ-менеджмент", "slug": "exec"}},
+  {"model": "agencies.category", "pk": 3, "fields": {"name": "Массовый подбор", "slug": "mass"}},
+  {"model": "agencies.category", "pk": 4, "fields": {"name": "Финансы", "slug": "finance"}},
+  {"model": "agencies.category", "pk": 5, "fields": {"name": "Универсальное", "slug": "general"}},
+
+  {"model": "agencies.agency", "pk": 1, "fields": {
+    "name": "Antal Russia", "description": "Международная рекрутинговая компания с 30-летней историей. Лидер в подборе топ-менеджмента, финансовых специалистов и массовом подборе персонала для крупных корпораций в России и СНГ.",
+    "city": "Москва", "address": "Пресненская наб., 10", "phone": "+7 (495) 935-86-00",
+    "founded_year": 1993, "website": "https://antal.ru", "is_verified": true,
+    "categories": [2, 3],
+    "specializations": "Executive Search,Финансы,Массовый подбор,FMCG,Фармацевтика",
+    "criteria_quality": 4.9, "criteria_speed": 4.7, "criteria_price": 4.2, "criteria_support": 4.9, "speed_score": 9.0,
+    "created_at": "2024-01-01T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 2, "fields": {
+    "name": "Ancor", "description": "Один из крупнейших игроков рынка HR-аутсорсинга в России. Более 30 лет на рынке, офисы по всей стране, сильная практика в финансовом секторе и массовом подборе.",
+    "city": "Москва", "address": "ул. Тверская, 16", "phone": "+7 (495) 797-07-07",
+    "founded_year": 1990, "website": "https://ancor.ru", "is_verified": true,
+    "categories": [3, 4, 5],
+    "specializations": "Массовый подбор,Финансовый сектор,Аутстаффинг,Офисный персонал,Производство",
+    "criteria_quality": 4.9, "criteria_speed": 4.8, "criteria_price": 4.5, "criteria_support": 4.9, "speed_score": 9.2,
+    "created_at": "2024-01-02T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 3, "fields": {
+    "name": "Manpower Group Russia", "description": "Глобальная компания по управлению персоналом. Специализируется на подборе руководителей среднего и высшего звена, аутстаффинге.",
+    "city": "Москва", "address": "Краснопресненская наб., 12", "phone": "+7 (495) 933-00-10",
+    "founded_year": 1997, "website": "https://manpowergroup.ru", "is_verified": true,
+    "categories": [2, 5],
+    "specializations": "Executive Search,Средний менеджмент,Аутстаффинг,Инжиниринг",
+    "criteria_quality": 4.8, "criteria_speed": 4.4, "criteria_price": 4.2, "criteria_support": 4.7, "speed_score": 8.5,
+    "created_at": "2024-01-03T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 4, "fields": {
+    "name": "Hays Russia", "description": "Международный рекрутинговый холдинг с фокусом на квалифицированных специалистах. Сильные практики в финансах, юриспруденции и IT.",
+    "city": "Москва", "address": "Романов переулок, 4", "phone": "+7 (495) 935-86-06",
+    "founded_year": 2004, "website": "https://hays.ru", "is_verified": true,
+    "categories": [1, 2, 4],
+    "specializations": "Финансы и банки,Юриспруденция,IT,Маркетинг,HR",
+    "criteria_quality": 4.7, "criteria_speed": 4.3, "criteria_price": 3.9, "criteria_support": 4.7, "speed_score": 8.3,
+    "created_at": "2024-01-04T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 5, "fields": {
+    "name": "IT HR Agency", "description": "Boutique агентство с фокусом на IT-рынке. Специализируется на подборе разработчиков, тимлидов, продакт-менеджеров и CTO.",
+    "city": "Москва", "address": "Льва Толстого, 16", "phone": "+7 (495) 123-45-67",
+    "founded_year": 2012, "website": "", "is_verified": true,
+    "categories": [1],
+    "specializations": "Backend / Frontend,DevOps / SRE,Product Management,Data Science,CTO / CIO",
+    "criteria_quality": 4.7, "criteria_speed": 4.6, "criteria_price": 4.3, "criteria_support": 4.4, "speed_score": 8.6,
+    "created_at": "2024-01-05T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 6, "fields": {
+    "name": "Kelly Services Russia", "description": "Глобальная компания кадровых решений. Охватывает широкий спектр индустрий от производства до профессиональных сервисов.",
+    "city": "Москва", "address": "Вавилова, 19", "phone": "+7 (495) 956-19-19",
+    "founded_year": 1998, "website": "https://kellyservices.ru", "is_verified": true,
+    "categories": [3, 5],
+    "specializations": "Производство,Логистика,Финансы,Инжиниринг,Офисный персонал",
+    "criteria_quality": 4.5, "criteria_speed": 4.3, "criteria_price": 4.4, "criteria_support": 4.4, "speed_score": 8.1,
+    "created_at": "2024-01-06T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 7, "fields": {
+    "name": "Adecco Russia", "description": "Один из мировых лидеров в сфере управления персоналом. Предоставляет услуги подбора, аутстаффинга и аутсорсинга HR-функций.",
+    "city": "Москва", "address": "Покровка, 3с1", "phone": "+7 (495) 739-06-06",
+    "founded_year": 1999, "website": "https://adecco.ru", "is_verified": true,
+    "categories": [3, 5],
+    "specializations": "Аутстаффинг,Массовый подбор,Административный персонал,Медицина",
+    "criteria_quality": 4.5, "criteria_speed": 4.2, "criteria_price": 4.3, "criteria_support": 4.4, "speed_score": 7.9,
+    "created_at": "2024-01-07T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 8, "fields": {
+    "name": "Профессионал-Сервис", "description": "Российская рекрутинговая компания с обширной базой кандидатов по всем регионам страны. Сильные практики в ритейле и FMCG.",
+    "city": "Москва", "address": "Ленинградский пр., 37", "phone": "+7 (495) 280-23-45",
+    "founded_year": 2003, "website": "", "is_verified": true,
+    "categories": [2, 5],
+    "specializations": "Ритейл,FMCG,Логистика,Управление продажами",
+    "criteria_quality": 4.4, "criteria_speed": 4.1, "criteria_price": 4.5, "criteria_support": 4.3, "speed_score": 7.7,
+    "created_at": "2024-01-08T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 9, "fields": {
+    "name": "Ward Howell", "description": "Ведущая российская компания в сфере Executive Search. Работает исключительно с топ-менеджментом и советами директоров крупных корпораций.",
+    "city": "Москва", "address": "Подсосенский пер., 22", "phone": "+7 (495) 730-60-30",
+    "founded_year": 1999, "website": "https://wardhowell.com", "is_verified": true,
+    "categories": [2],
+    "specializations": "CEO / CFO,Совет директоров,Board Advisory,Банки,Государственные структуры",
+    "criteria_quality": 4.9, "criteria_speed": 3.8, "criteria_price": 3.5, "criteria_support": 4.6, "speed_score": 6.5,
+    "created_at": "2024-01-09T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 10, "fields": {
+    "name": "Luxoft Staffing", "description": "IT-подразделение Luxoft по рекрутингу. Глубокая экспертиза в технических направлениях: от Java до встраиваемых систем.",
+    "city": "Москва", "address": "Ул. 1905 года, 7", "phone": "+7 (495) 755-00-70",
+    "founded_year": 2010, "website": "https://luxoft.com", "is_verified": true,
+    "categories": [1],
+    "specializations": "Java / C++,Embedded,Automotive,FinTech,QA Automation",
+    "criteria_quality": 4.5, "criteria_speed": 4.4, "criteria_price": 4.0, "criteria_support": 4.1, "speed_score": 8.3,
+    "created_at": "2024-01-10T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 11, "fields": {
+    "name": "Банк кадров", "description": "Специализированное агентство по подбору персонала в банковской и финансовой сфере. Крупнейшая база финансовых специалистов в России.",
+    "city": "Москва", "address": "Воронцово поле, 6с1", "phone": "+7 (495) 626-16-81",
+    "founded_year": 2001, "website": "", "is_verified": true,
+    "categories": [4, 5],
+    "specializations": "Банковское дело,Страхование,Инвестиции,Бухгалтерия,Финансовый анализ",
+    "criteria_quality": 4.4, "criteria_speed": 4.0, "criteria_price": 4.4, "criteria_support": 4.1, "speed_score": 7.8,
+    "created_at": "2024-01-11T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 12, "fields": {
+    "name": "TalentTech Recruit", "description": "Технологическая рекрутинговая платформа нового поколения. Использует AI-алгоритмы для подбора и оценки кандидатов.",
+    "city": "Москва", "address": "Красная Роза, 1", "phone": "+7 (812) 490-79-90",
+    "founded_year": 2017, "website": "", "is_verified": true,
+    "categories": [1, 5],
+    "specializations": "IT,Digital-маркетинг,Product,Data,Стартапы",
+    "criteria_quality": 4.3, "criteria_speed": 4.7, "criteria_price": 4.5, "criteria_support": 3.9, "speed_score": 9.0,
+    "created_at": "2024-01-12T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 13, "fields": {
+    "name": "Cornerstone", "description": "Российская компания в сфере Executive Search и подбора персонала среднего звена. Партнёр крупнейших международных корпораций.",
+    "city": "Москва", "address": "Страстной б-р, 6", "phone": "+7 (495) 721-00-10",
+    "founded_year": 1996, "website": "https://cornerstone.ru", "is_verified": true,
+    "categories": [2, 4],
+    "specializations": "Топ-менеджмент,Промышленность,Фармацевтика,FMCG,Химия",
+    "criteria_quality": 4.6, "criteria_speed": 3.9, "criteria_price": 3.9, "criteria_support": 4.3, "speed_score": 7.2,
+    "created_at": "2024-01-13T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 14, "fields": {
+    "name": "Кадровый Двор", "description": "Агентство с фокусом на массовом подборе для ритейла, логистики и производства. Быстрое закрытие линейных вакансий в Москве и МО.",
+    "city": "Москва", "address": "Ясеневая, 6", "phone": "+7 (495) 744-45-05",
+    "founded_year": 2006, "website": "", "is_verified": true,
+    "categories": [3, 5],
+    "specializations": "Склад / логистика,Ритейл (линейный персонал),Производство,Курьерские службы",
+    "criteria_quality": 4.1, "criteria_speed": 4.8, "criteria_price": 4.6, "criteria_support": 3.9, "speed_score": 9.1,
+    "created_at": "2024-01-14T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 15, "fields": {
+    "name": "Агентство Контакт", "description": "Одно из первых российских рекрутинговых агентств. Широкая экспертиза в разных индустриях, сильная аналитическая команда.",
+    "city": "Москва", "address": "Арбат, 28", "phone": "+7 (495) 785-09-22",
+    "founded_year": 1993, "website": "https://contact-ca.ru", "is_verified": true,
+    "categories": [2, 5],
+    "specializations": "Управление,Строительство,Недвижимость,Телеком,Media",
+    "criteria_quality": 4.4, "criteria_speed": 4.0, "criteria_price": 4.2, "criteria_support": 3.9, "speed_score": 7.4,
+    "created_at": "2024-01-15T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 16, "fields": {
+    "name": "Selectum", "description": "Молодое агентство с современным подходом к рекрутингу. Специализируется на IT и digital-позициях для стартапов и tech-компаний.",
+    "city": "Москва", "address": "Нижняя Красносельская, 35с1", "phone": "+7 (495) 128-90-45",
+    "founded_year": 2019, "website": "", "is_verified": false,
+    "categories": [1, 5],
+    "specializations": "Разработка,Дизайн,Product,Growth Hacking,Стартапы",
+    "criteria_quality": 4.1, "criteria_speed": 4.5, "criteria_price": 4.4, "criteria_support": 3.8, "speed_score": 8.7,
+    "created_at": "2024-01-16T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 17, "fields": {
+    "name": "GlobalHR Russia", "description": "Международная сеть рекрутинговых компаний. Помогает иностранным компаниям выходить на российский рынок и формировать локальные команды.",
+    "city": "Москва", "address": "Бизнес-центр «Москва-Сити»", "phone": "+7 (495) 961-32-11",
+    "founded_year": 2008, "website": "", "is_verified": false,
+    "categories": [2, 5],
+    "specializations": "Экспаты,Международные компании,Юридические лица,Консалтинг",
+    "criteria_quality": 4.1, "criteria_speed": 3.8, "criteria_price": 3.7, "criteria_support": 4.2, "speed_score": 7.0,
+    "created_at": "2024-01-17T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 18, "fields": {
+    "name": "Формула труда", "description": "Агентство по массовому подбору рабочего и обслуживающего персонала. Специализация — горничные, официанты, повара, грузчики, кассиры.",
+    "city": "Москва", "address": "Щербаковская, 3", "phone": "+7 (495) 540-23-60",
+    "founded_year": 2009, "website": "", "is_verified": false,
+    "categories": [3],
+    "specializations": "HoReCa,Ритейл,Уборка,Склад,Охрана",
+    "criteria_quality": 3.7, "criteria_speed": 4.9, "criteria_price": 4.7, "criteria_support": 3.7, "speed_score": 9.3,
+    "created_at": "2024-01-18T00:00:00Z"}},
+
+  {"model": "agencies.agency", "pk": 19, "fields": {
+    "name": "Рекрутинг Партнёр", "description": "Небольшое бутиковое агентство с персональным подходом. Работает в нише бухгалтерии, финансов и права для МСБ.",
+    "city": "Москва", "address": "Хорошёвское ш., 16", "phone": "+7 (495) 971-30-07",
+    "founded_year": 2011, "website": "", "is_verified": false,
+    "categories": [4, 5],
+    "specializations": "Бухгалтерия,Налогообложение,Юридические услуги,HR для МСБ",
+    "criteria_quality": 3.9, "criteria_speed": 3.8, "criteria_price": 4.7, "criteria_support": 4.0, "speed_score": 7.1,
+    "created_at": "2024-01-19T00:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 1, "fields": {"agency": 1, "rating": 5, "text": "Отличная работа, закрыли сложную позицию CFO за 3 недели.", "author": "Андрей К.", "created_at": "2025-11-01T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 2, "fields": {"agency": 1, "rating": 5, "text": "Профессиональный подход, качественные кандидаты.", "author": "Марина С.", "created_at": "2025-10-15T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 3, "fields": {"agency": 1, "rating": 5, "text": "Работаем с Antal уже 5 лет, всегда на высоте.", "author": "Дмитрий В.", "created_at": "2025-09-20T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 4, "fields": {"agency": 2, "rating": 5, "text": "Самый большой охват кандидатов из всех агентств, с которыми работали.", "author": "Ольга Р.", "created_at": "2025-11-05T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 5, "fields": {"agency": 2, "rating": 5, "text": "Закрыли 40 вакансий за 2 месяца, очень оперативно.", "author": "Сергей П.", "created_at": "2025-10-10T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 6, "fields": {"agency": 2, "rating": 5, "text": "Отличная коммуникация и прозрачный процесс.", "author": "Наталья Б.", "created_at": "2025-09-01T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 7, "fields": {"agency": 3, "rating": 5, "text": "Нашли отличного директора по маркетингу.", "author": "Иван Л.", "created_at": "2025-11-10T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 8, "fields": {"agency": 3, "rating": 4, "text": "Хорошая работа, немного затянули сроки.", "author": "Татьяна М.", "created_at": "2025-10-05T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 9, "fields": {"agency": 3, "rating": 5, "text": "Международная экспертиза на высоте.", "author": "Алексей Н.", "created_at": "2025-08-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 10, "fields": {"agency": 4, "rating": 5, "text": "Лучшее IT-рекрутинговое агентство по нашему опыту.", "author": "Павел О.", "created_at": "2025-11-12T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 11, "fields": {"agency": 4, "rating": 4, "text": "Хорошие кандидаты, ценник выше среднего.", "author": "Юлия Ф.", "created_at": "2025-10-20T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 12, "fields": {"agency": 5, "rating": 5, "text": "Закрыли позицию Senior Backend Developer за 2 недели.", "author": "Виктор Г.", "created_at": "2025-11-08T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 13, "fields": {"agency": 5, "rating": 4, "text": "Понимают специфику IT, кандидаты проверенные.", "author": "Ирина Ч.", "created_at": "2025-09-25T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 14, "fields": {"agency": 6, "rating": 4, "text": "Надёжное агентство, широкий охват.", "author": "Кирилл Ш.", "created_at": "2025-11-03T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 15, "fields": {"agency": 6, "rating": 5, "text": "Закрыли производственные вакансии оперативно.", "author": "Анна Щ.", "created_at": "2025-10-01T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 16, "fields": {"agency": 7, "rating": 4, "text": "Хорошее агентство для аутстаффинга.", "author": "Максим Э.", "created_at": "2025-10-28T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 17, "fields": {"agency": 7, "rating": 5, "text": "Оперативно закрыли массовые вакансии.", "author": "Светлана Ю.", "created_at": "2025-09-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 18, "fields": {"agency": 8, "rating": 4, "text": "Хорошая база кандидатов в FMCG.", "author": "Роман А.", "created_at": "2025-11-01T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 19, "fields": {"agency": 8, "rating": 5, "text": "Доступные цены при хорошем качестве.", "author": "Елена Б.", "created_at": "2025-09-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 20, "fields": {"agency": 9, "rating": 4, "text": "Топовые кандидаты, процесс занял 2 месяца.", "author": "Геннадий В.", "created_at": "2025-10-15T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 21, "fields": {"agency": 9, "rating": 5, "text": "Нашли независимого директора в совет.", "author": "Людмила Г.", "created_at": "2025-08-20T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 22, "fields": {"agency": 10, "rating": 4, "text": "Глубокое знание Java-стека.", "author": "Денис Д.", "created_at": "2025-11-05T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 23, "fields": {"agency": 10, "rating": 5, "text": "Закрыли 3 embedded-вакансии за месяц.", "author": "Оксана Е.", "created_at": "2025-10-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 24, "fields": {"agency": 11, "rating": 4, "text": "Специализация на финансах — это их сильная сторона.", "author": "Фёдор Ж.", "created_at": "2025-10-20T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 25, "fields": {"agency": 11, "rating": 5, "text": "Закрыли вакансию риск-менеджера за 2 недели.", "author": "Галина З.", "created_at": "2025-09-05T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 26, "fields": {"agency": 12, "rating": 4, "text": "Технологичный подход, быстрое закрытие.", "author": "Владимир И.", "created_at": "2025-11-10T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 27, "fields": {"agency": 12, "rating": 5, "text": "Отличный сервис для IT-стартапов.", "author": "Наталья Й.", "created_at": "2025-10-05T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 28, "fields": {"agency": 13, "rating": 4, "text": "Хорошая экспертиза в промышленности.", "author": "Борис К.", "created_at": "2025-10-25T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 29, "fields": {"agency": 13, "rating": 5, "text": "Закрыли позицию директора фармацевтической компании.", "author": "Валентина Л.", "created_at": "2025-09-20T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 30, "fields": {"agency": 14, "rating": 4, "text": "Быстрый массовый подбор для склада.", "author": "Григорий М.", "created_at": "2025-11-02T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 31, "fields": {"agency": 14, "rating": 4, "text": "Оперативно, цена адекватная.", "author": "Зинаида Н.", "created_at": "2025-10-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 32, "fields": {"agency": 15, "rating": 4, "text": "Большой опыт на рынке, широкая сеть.", "author": "Кирилл О.", "created_at": "2025-10-28T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 33, "fields": {"agency": 15, "rating": 4, "text": "Хорошо работают в недвижимости.", "author": "Лариса П.", "created_at": "2025-09-15T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 34, "fields": {"agency": 16, "rating": 4, "text": "Молодая команда, современный подход.", "author": "Михаил Р.", "created_at": "2025-11-06T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 35, "fields": {"agency": 16, "rating": 4, "text": "Закрыли дизайнерскую вакансию быстро.", "author": "Надежда С.", "created_at": "2025-10-01T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 36, "fields": {"agency": 17, "rating": 4, "text": "Хорошо работают с международными компаниями.", "author": "Олег Т.", "created_at": "2025-10-20T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 37, "fields": {"agency": 17, "rating": 4, "text": "Помогли с локализацией команды.", "author": "Полина У.", "created_at": "2025-09-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 38, "fields": {"agency": 18, "rating": 4, "text": "Быстро, для HoReCa просто незаменимы.", "author": "Руслан Ф.", "created_at": "2025-11-01T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 39, "fields": {"agency": 18, "rating": 4, "text": "Закрыли 20 вакансий кассиров за неделю.", "author": "Светлана Х.", "created_at": "2025-10-10T10:00:00Z"}},
+
+  {"model": "agencies.review", "pk": 40, "fields": {"agency": 19, "rating": 4, "text": "Отличный выбор для небольшого бизнеса.", "author": "Тимур Ц.", "created_at": "2025-10-25T10:00:00Z"}},
+  {"model": "agencies.review", "pk": 41, "fields": {"agency": 19, "rating": 4, "text": "Бухгалтера нашли быстро, цена приятная.", "author": "Ульяна Ш.", "created_at": "2025-09-15T10:00:00Z"}}
+]

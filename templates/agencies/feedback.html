@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Обратная связь — HR Rating</title>
+  <meta name="description" content="Форма обратной связи — HR Rating">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0066ff;
+      --primary-hover: #0052cc;
+      --primary-50: #eaf2ff;
+      --ink: #0c1830;
+      --text: #0f1419;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --bg-soft: #f7f8fb;
+      --border: #e6e9f1;
+      --green: #10b981;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-md: 0 4px 20px rgba(15,20,25,.06);
+    }
+
+    body {
+      font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-soft);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'ss01', 'cv11';
+    }
+
+    /* ── NAV ── */
+    .topnav {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-link { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
+    .logo-mark {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -.3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-mark::before {
+      content: '';
+      position: absolute;
+      inset: auto -14px -14px auto;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #ffb800;
+      opacity: .9;
+    }
+    .logo-mark span { position: relative; z-index: 1; }
+    .logo-text {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.6px;
+      color: var(--text);
+    }
+    .logo-text small {
+      display: block;
+      font-family: 'Manrope', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .header-back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      transition: border-color .15s, background .15s;
+    }
+    .header-back:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 64px 16px 80px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 48px 52px;
+      width: 100%;
+      max-width: 580px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -1.8px;
+      line-height: 1.02;
+      margin-bottom: 14px;
+    }
+    .card-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    label .req { color: var(--primary); margin-left: 2px; }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--text);
+      background: var(--bg-soft);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0,102,255,.10);
+      background: #fff;
+    }
+    textarea { min-height: 140px; font-family: inherit; }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--primary);
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background .15s, transform .1s;
+      width: 100%;
+      text-align: center;
+      letter-spacing: -.2px;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:active { transform: scale(.98); }
+
+    /* ── SUCCESS ── */
+    .success-box {
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: #ecfdf5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+    }
+    .success-icon svg { color: var(--green); }
+    .success-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -1.4px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    .success-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .success-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 22px;
+      border-radius: 99px;
+      background: var(--primary-50);
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .success-link:hover { background: var(--primary); color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050b1c;
+      color: #64748b;
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer strong { color: #fff; font-weight: 700; font-family: 'Unbounded', sans-serif; letter-spacing: -.3px; }
+
+    @media (max-width: 600px) {
+      .card { padding: 32px 24px; }
+      .card-title { font-size: 26px; }
+      main { padding: 36px 16px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/" class="logo-link">
+    <div class="logo-mark"><span>HR</span></div>
+    <span class="logo-text">
+      Rating
+      <small>HR-агентства · 2026</small>
+    </span>
+  </a>
+  <a href="/" class="header-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    К рейтингу
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+    {% if sent %}
+    <div class="success-box">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="success-title">Сообщение отправлено</div>
+      <p class="success-text">Спасибо! Мы получили ваше обращение и ответим в ближайшее время.</p>
+      <a href="/" class="success-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Вернуться к рейтингу
+      </a>
+    </div>
+    {% else %}
+    <span class="eyebrow">Контакты</span>
+    <div class="card-title">Обратная связь</div>
+    <p class="card-sub">Есть вопрос, предложение или хотите добавить агентство? Напишите нам — ответим в течение пары дней.</p>
+    <form method="post" action="/feedback/">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Ваше имя<span class="req">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Иван Иванов" required maxlength="150">
+      </div>
+      <div class="form-group">
+        <label for="email">Email<span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="ivan@example.com" required maxlength="254">
+      </div>
+      <div class="form-group">
+        <label for="subject">Тема</label>
+        <input type="text" id="subject" name="subject" placeholder="Добавить агентство / Ошибка / Другое" maxlength="200">
+      </div>
+      <div class="form-group">
+        <label for="message">Сообщение<span class="req">*</span></label>
+        <textarea id="message" name="message" placeholder="Опишите ваш вопрос или предложение…" required></textarea>
+      </div>
+      <button type="submit" class="btn">Отправить сообщение</button>
+    </form>
+    {% endif %}
+  </div>
+</main>
+
+<footer>
+  <strong>HR Rating</strong> &mdash; независимый рейтинг кадровых агентств &copy; 2026
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Условия использования — HR Rating</title>
+  <meta name="description" content="Условия использования сайта HR Rating — независимого рейтинга кадровых агентств.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0066ff;
+      --primary-hover: #0052cc;
+      --primary-50: #eaf2ff;
+      --ink: #0c1830;
+      --text: #0f1419;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --bg-soft: #f7f8fb;
+      --border: #e6e9f1;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-md: 0 4px 20px rgba(15,20,25,.06);
+    }
+
+    body {
+      font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-soft);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'ss01', 'cv11';
+    }
+
+    a { color: var(--primary); }
+
+    /* ── NAV ── */
+    .topnav {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-link { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
+    .logo-mark {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -.3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-mark::before {
+      content: '';
+      position: absolute;
+      inset: auto -14px -14px auto;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #ffb800;
+      opacity: .9;
+    }
+    .logo-mark span { position: relative; z-index: 1; }
+    .logo-text {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.6px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo-text small {
+      display: block;
+      font-family: 'Manrope', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .header-back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      transition: border-color .15s, background .15s;
+    }
+    .header-back:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 64px 16px 80px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 56px 64px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -1.8px;
+      line-height: 1.02;
+      margin-bottom: 10px;
+    }
+    .card-meta {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    /* ── CONTENT ── */
+    .doc-body h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -.5px;
+      margin: 36px 0 12px;
+    }
+    .doc-body h2:first-child { margin-top: 0; }
+    .doc-body p {
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .doc-body ul, .doc-body ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+    .doc-body li {
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+    .doc-body a { color: var(--primary); font-weight: 600; }
+    .doc-body strong { color: var(--text); font-weight: 700; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050b1c;
+      color: #64748b;
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer strong { color: #fff; font-weight: 700; font-family: 'Unbounded', sans-serif; letter-spacing: -.3px; }
+    footer a { color: #64748b; text-decoration: none; transition: color .15s; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 600px) {
+      .card { padding: 32px 24px; }
+      .card-title { font-size: 26px; }
+      main { padding: 36px 16px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/" class="logo-link">
+    <div class="logo-mark"><span>HR</span></div>
+    <span class="logo-text">
+      Rating
+      <small>HR-агентства · 2026</small>
+    </span>
+  </a>
+  <a href="/" class="header-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    К рейтингу
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+    <span class="eyebrow">Документы</span>
+    <div class="card-title">Условия использования</div>
+    <p class="card-meta">Последнее обновление: 1 января 2026 г.</p>
+
+    <div class="doc-body">
+      <h2>1. Общие положения</h2>
+      <p>Настоящие Условия использования регулируют порядок доступа и использования сайта <strong>HR Rating</strong> (далее — «Сайт»), расположенного в сети Интернет. Используя Сайт, вы соглашаетесь соблюдать настоящие Условия в полном объёме.</p>
+      <p>Если вы не согласны с каким-либо пунктом настоящих Условий, пожалуйста, прекратите использование Сайта.</p>
+
+      <h2>2. Описание сервиса</h2>
+      <p>HR Rating — независимый информационный ресурс, публикующий рейтинг кадровых агентств на основе совокупных данных: пользовательских отзывов, экспертных оценок и открытых источников. Сайт не является рекламной площадкой и не продаёт позиции в рейтинге.</p>
+
+      <h2>3. Информационный характер материалов</h2>
+      <p>Все материалы, опубликованные на Сайте, носят исключительно информационный характер и не являются:</p>
+      <ul>
+        <li>публичной офертой;</li>
+        <li>профессиональным юридическим, финансовым или иным консультационным советом;</li>
+        <li>гарантией качества услуг упомянутых агентств.</li>
+      </ul>
+      <p>Администрация Сайта не несёт ответственности за решения, принятые на основании опубликованных материалов. Перед выбором агентства рекомендуем самостоятельно проверять актуальную информацию на официальных сайтах и в иных достоверных источниках.</p>
+
+      <h2>4. Интеллектуальная собственность</h2>
+      <p>Все тексты, рейтинговые методологии, дизайн и иные материалы Сайта являются объектами авторского права и принадлежат HR Rating, если не указано иное. Запрещается:</p>
+      <ul>
+        <li>копирование, воспроизведение или распространение материалов без письменного разрешения;</li>
+        <li>использование данных Сайта в коммерческих целях без согласования с администрацией;</li>
+        <li>автоматизированный сбор данных (парсинг) без явного согласия.</li>
+      </ul>
+
+      <h2>5. Пользовательский контент</h2>
+      <p>Оставляя отзыв или иное сообщение через формы Сайта, вы подтверждаете, что:</p>
+      <ul>
+        <li>информация достоверна и основана на вашем личном опыте;</li>
+        <li>вы не нарушаете права третьих лиц;</li>
+        <li>вы предоставляете HR Rating безвозмездное право публиковать и использовать ваш контент.</li>
+      </ul>
+      <p>Администрация оставляет за собой право модерировать и удалять контент, нарушающий настоящие Условия или действующее законодательство.</p>
+
+      <h2>6. Ограничение ответственности</h2>
+      <p>Сайт предоставляется «как есть» без каких-либо гарантий. Администрация не гарантирует непрерывность работы сервиса и не несёт ответственности за ущерб, возникший вследствие использования или невозможности использования Сайта.</p>
+
+      <h2>7. Внешние ссылки</h2>
+      <p>Сайт может содержать ссылки на сторонние ресурсы. Администрация не контролирует их содержание и не несёт ответственности за их работу или политику конфиденциальности.</p>
+
+      <h2>8. Изменение условий</h2>
+      <p>Администрация вправе изменять настоящие Условия в любое время. Актуальная версия всегда доступна на этой странице. Продолжение использования Сайта после публикации изменений означает принятие новых Условий.</p>
+
+      <h2>9. Применимое право</h2>
+      <p>Настоящие Условия регулируются законодательством Российской Федерации. Все споры подлежат разрешению в судебном порядке по месту нахождения администрации Сайта.</p>
+
+      <h2>10. Контакты</h2>
+      <p>По вопросам, связанным с настоящими Условиями, обращайтесь через <a href="/feedback/">форму обратной связи</a>.</p>
+
+      <hr class="divider">
+      <p style="font-size:13.5px; color:var(--muted);">Также ознакомьтесь с нашей <a href="/privacy/">Политикой конфиденциальности</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>HR Rating</strong> &mdash; независимый рейтинг кадровых агентств &copy; 2026
+  &nbsp;·&nbsp; <a href="/terms/">Условия использования</a>
+  &nbsp;·&nbsp; <a href="/privacy/">Политика конфиденциальности</a>
+</footer>
+
+</body>
+</html>

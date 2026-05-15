@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Политика конфиденциальности — HR Rating</title>
+  <meta name="description" content="Политика конфиденциальности HR Rating — как мы обрабатываем персональные данные пользователей.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0066ff;
+      --primary-hover: #0052cc;
+      --primary-50: #eaf2ff;
+      --ink: #0c1830;
+      --text: #0f1419;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --bg-soft: #f7f8fb;
+      --border: #e6e9f1;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-md: 0 4px 20px rgba(15,20,25,.06);
+    }
+
+    body {
+      font-family: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg-soft);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'ss01', 'cv11';
+    }
+
+    a { color: var(--primary); }
+
+    /* ── NAV ── */
+    .topnav {
+      background: rgba(255,255,255,.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-link { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
+    .logo-mark {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      background: var(--ink);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -.3px;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-mark::before {
+      content: '';
+      position: absolute;
+      inset: auto -14px -14px auto;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .logo-mark::after {
+      content: '';
+      position: absolute;
+      top: -6px; left: -6px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #ffb800;
+      opacity: .9;
+    }
+    .logo-mark span { position: relative; z-index: 1; }
+    .logo-text {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: -.6px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo-text small {
+      display: block;
+      font-family: 'Manrope', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .header-back {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 99px;
+      transition: border-color .15s, background .15s;
+    }
+    .header-back:hover { border-color: var(--primary); background: var(--primary-50); color: var(--primary); }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 64px 16px 80px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 56px 64px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .card-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -1.8px;
+      line-height: 1.02;
+      margin-bottom: 10px;
+    }
+    .card-meta {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    /* ── CONTENT ── */
+    .doc-body h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -.5px;
+      margin: 36px 0 12px;
+    }
+    .doc-body h2:first-child { margin-top: 0; }
+    .doc-body p {
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .doc-body ul, .doc-body ol {
+      padding-left: 22px;
+      margin-bottom: 14px;
+    }
+    .doc-body li {
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+    .doc-body a { color: var(--primary); font-weight: 600; }
+    .doc-body strong { color: var(--text); font-weight: 700; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050b1c;
+      color: #64748b;
+      text-align: center;
+      padding: 36px 24px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    footer strong { color: #fff; font-weight: 700; font-family: 'Unbounded', sans-serif; letter-spacing: -.3px; }
+    footer a { color: #64748b; text-decoration: none; transition: color .15s; }
+    footer a:hover { color: #fff; }
+
+    @media (max-width: 600px) {
+      .card { padding: 32px 24px; }
+      .card-title { font-size: 26px; }
+      main { padding: 36px 16px 56px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="/" class="logo-link">
+    <div class="logo-mark"><span>HR</span></div>
+    <span class="logo-text">
+      Rating
+      <small>HR-агентства · 2026</small>
+    </span>
+  </a>
+  <a href="/" class="header-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    К рейтингу
+  </a>
+</nav>
+
+<main>
+  <div class="card">
+    <span class="eyebrow">Документы</span>
+    <div class="card-title">Политика конфиденциальности</div>
+    <p class="card-meta">Последнее обновление: 1 января 2026 г.</p>
+
+    <div class="doc-body">
+      <h2>1. Введение</h2>
+      <p>Настоящая Политика конфиденциальности (далее — «Политика») описывает, какие персональные данные собирает <strong>HR Rating</strong> (далее — «Сайт», «мы»), с какой целью, как хранит и защищает их. Используя Сайт, вы принимаете условия настоящей Политики.</p>
+
+      <h2>2. Какие данные мы собираем</h2>
+      <p>Мы можем собирать следующие категории данных:</p>
+      <ul>
+        <li><strong>Данные, которые вы передаёте нам добровольно</strong> — имя, адрес электронной почты, текст сообщения при обращении через форму обратной связи, а также отзывы об агентствах.</li>
+        <li><strong>Технические данные</strong> — IP-адрес, тип браузера, операционная система, страницы, которые вы посетили, время и дата визита. Эти данные собираются автоматически и не идентифицируют вас лично.</li>
+        <li><strong>Cookie-файлы</strong> — небольшие текстовые файлы, которые сохраняются в вашем браузере для корректной работы Сайта.</li>
+      </ul>
+
+      <h2>3. Цели обработки данных</h2>
+      <p>Собранные данные используются исключительно для:</p>
+      <ul>
+        <li>ответа на ваши обращения через форму обратной связи;</li>
+        <li>улучшения работы и содержания Сайта;</li>
+        <li>анализа посещаемости и поведения пользователей в агрегированном виде;</li>
+        <li>предотвращения мошенничества и злоупотреблений.</li>
+      </ul>
+      <p>Мы не используем ваши данные для таргетированной рекламы и не продаём их третьим лицам.</p>
+
+      <h2>4. Передача данных третьим лицам</h2>
+      <p>Мы не передаём персональные данные третьим лицам, за исключением случаев, когда это:</p>
+      <ul>
+        <li>требуется по закону или по запросу компетентных органов;</li>
+        <li>необходимо для оказания технических услуг (хостинг, аналитика) — в этом случае третьи стороны обязаны соблюдать конфиденциальность.</li>
+      </ul>
+
+      <h2>5. Cookie-файлы</h2>
+      <p>Сайт использует cookie для обеспечения базовой функциональности (например, защита форм от спама). Вы можете отключить cookie в настройках браузера, однако некоторые функции Сайта могут работать некорректно.</p>
+      <p>Мы не используем сторонние рекламные cookie.</p>
+
+      <h2>6. Хранение и защита данных</h2>
+      <p>Персональные данные хранятся на защищённых серверах. Мы применяем технические и организационные меры для предотвращения несанкционированного доступа, изменения или уничтожения данных. Данные из форм обратной связи хранятся не дольше, чем это необходимо для обработки обращения.</p>
+
+      <h2>7. Ваши права</h2>
+      <p>В соответствии с законодательством о персональных данных вы вправе:</p>
+      <ul>
+        <li>запросить информацию о том, какие данные о вас хранятся;</li>
+        <li>потребовать исправления или удаления ваших данных;</li>
+        <li>отозвать согласие на обработку данных в любое время.</li>
+      </ul>
+      <p>Для реализации этих прав обращайтесь через <a href="/feedback/">форму обратной связи</a>.</p>
+
+      <h2>8. Дети</h2>
+      <p>Сайт не предназначен для лиц младше 16 лет. Мы сознательно не собираем персональные данные детей. Если вам известно, что ребёнок предоставил нам свои данные, пожалуйста, сообщите нам.</p>
+
+      <h2>9. Изменение Политики</h2>
+      <p>Мы можем обновлять настоящую Политику. Актуальная версия всегда доступна на этой странице. Рекомендуем периодически проверять её на предмет изменений.</p>
+
+      <h2>10. Контакты</h2>
+      <p>По вопросам, связанным с обработкой персональных данных, обращайтесь через <a href="/feedback/">форму обратной связи</a>.</p>
+
+      <hr class="divider">
+      <p style="font-size:13.5px; color:var(--muted);">Также ознакомьтесь с нашими <a href="/terms/">Условиями использования</a>.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>HR Rating</strong> &mdash; независимый рейтинг кадровых агентств &copy; 2026
+  &nbsp;·&nbsp; <a href="/terms/">Условия использования</a>
+  &nbsp;·&nbsp; <a href="/privacy/">Политика конфиденциальности</a>
+</footer>
+
+</body>
+</html>

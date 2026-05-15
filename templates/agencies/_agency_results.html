@@ -1,0 +1,126 @@
+  <div class="section-header">
+    <h2>{% if city_page %}{% if city_page.agencies_heading %}{{ city_page.agencies_heading }}{% else %}Агентства {{ city_page.name_genitive }}{% endif %}{% else %}{{ site.agencies_heading }}{% endif %}</h2>
+    <span class="count-badge">{{ count_label }}</span>
+  </div>
+
+  <div class="agencies-grid">
+    {% for item in agency_list %}
+    {% with a=item.obj rank=item.rank rating=item.rating %}
+    <div class="agency-card {% if rank == 1 %}top-1{% elif rank == 2 %}top-2{% elif rank == 3 %}top-3{% endif %}"
+         onclick="toggleCard(this)">
+
+      <div class="rank-badge {% if rank == 1 %}rank-1{% elif rank == 2 %}rank-2{% elif rank == 3 %}rank-3{% else %}rank-other{% endif %}">
+        {{ rank }}
+      </div>
+
+      <div class="agency-info">
+        <div class="agency-name-row">
+          <span class="agency-name">{{ a.name }}</span>
+          {% for cat in a.categories.all %}
+          <span class="tag tag-{{ cat.slug }}">{{ cat.name }}</span>
+          {% endfor %}
+          {% if a.city %}
+          <span class="tag tag-city">{{ a.city }}</span>
+          {% endif %}
+{% if a.speed_score >= 9.0 %}
+          <span class="tag tag-speed">Быстрый подбор</span>
+          {% endif %}
+        </div>
+        <div class="agency-desc">{{ a.description }}</div>
+        <div class="agency-meta">
+          {% if a.founded_year %}
+          <span class="meta-item">
+            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg>
+            На рынке с {{ a.founded_year }} г.
+          </span>
+          {% endif %}
+          {% if a.address %}
+          <span class="meta-item">
+            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/><circle cx='12' cy='10' r='3'/></svg>
+            {{ a.address }}
+          </span>
+          {% endif %}
+          {% if a.phone %}
+          <span class="meta-item">
+            <svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l1.27-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'/></svg>
+            {{ a.phone }}
+          </span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="agency-right">
+        <div class="stars" id="stars-{{ a.pk }}"></div>
+        <div class="rating-num">{{ rating }}</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-label"><span>Рейтинг</span><span>{% widthratio rating 5 100 %}%</span></div>
+          <div class="score-bar"><div class="score-bar-fill" style="width:{% widthratio rating 5 100 %}%"></div></div>
+        </div>
+      </div>
+
+      <div class="chevron">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+
+      <div class="agency-expanded">
+        <div class="expanded-grid">
+          <div class="exp-block">
+            <h4>Специализации</h4>
+            <ul class="exp-list">
+              {% for s in item.specializations %}<li>{{ s }}</li>{% endfor %}
+            </ul>
+          </div>
+          <div class="exp-block">
+            <h4>Оценки по критериям</h4>
+            <div class="criteria-bars">
+              {% include "agencies/_crit_bar.html" with label="Качество" value=a.criteria_quality %}
+              {% include "agencies/_crit_bar.html" with label="Скорость" value=a.criteria_speed %}
+              {% include "agencies/_crit_bar.html" with label="Цена" value=a.criteria_price %}
+              {% include "agencies/_crit_bar.html" with label="Поддержка" value=a.criteria_support %}
+            </div>
+          </div>
+          <div class="exp-block">
+            <h4>Контакты</h4>
+            <ul class="contacts-list">
+              {% if a.phone %}
+              <li>
+                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6 6l1.27-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z'/></svg>
+                {{ a.phone }}
+              </li>
+              {% endif %}
+              {% if a.website %}
+              <li>
+                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10'/><line x1='2' y1='12' x2='22' y2='12'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>
+                <a href="{{ a.website }}" target="_blank" rel="noopener">{{ a.website|cut:"https://" }}</a>
+              </li>
+              {% endif %}
+              {% if a.address %}
+              <li>
+                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/><circle cx='12' cy='10' r='3'/></svg>
+                {{ a.address }}
+              </li>
+              {% endif %}
+              {% if a.founded_year %}
+              <li>
+                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='3' y='4' width='18' height='18' rx='2' ry='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/></svg>
+                Основано в {{ a.founded_year }} году
+              </li>
+              {% endif %}
+              <li style="align-items:flex-start">
+                <svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' style='margin-top:2px'><circle cx='12' cy='12' r='10'/><polyline points='12 6 12 12 16 14'/></svg>
+                Скорость закрытия: <strong>&nbsp;{{ a.speed_score }}/10</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endwith %}
+    {% empty %}
+    <div class="no-results">
+      <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <h3>Ничего не найдено</h3>
+      <p>Попробуйте изменить запрос или фильтры</p>
+    </div>
+    {% endfor %}
+  </div>
