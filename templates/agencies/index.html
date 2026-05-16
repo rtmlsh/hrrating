@@ -225,6 +225,28 @@
       color: rgba(255,255,255,.92);
       margin-bottom: 28px;
     }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; align-items: center; }
+    .hero-pills .hero-pill { margin-bottom: 0; }
+    .hero-updated {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,.15);
+      border: 1px solid rgba(16,185,129,.3);
+      border-radius: 99px;
+      padding: 7px 16px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #6ee7b7;
+    }
+    .hero-updated::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px rgba(52,211,153,.6);
+      flex-shrink: 0;
+    }
     .hero-pill::before {
       content: '';
       width: 7px; height: 7px;
@@ -435,14 +457,6 @@
     .agency-card.top-1 {
       border: 2px solid var(--amber);
       box-shadow: 0 0 0 3px rgba(245,158,11,.1), var(--shadow-sm);
-    }
-    .agency-card.top-1::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--amber) 0%, #ffd166 100%);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
     .rank-badge {
@@ -1074,7 +1088,8 @@
     @media (max-width: 768px) {
       .topnav-inner { padding: 12px 16px; gap: 12px; }
       .topnav-meta { display: none; }
-      .bottom-nav-meta { display: flex; }
+      .bottom-nav-meta { display: none; }
+      .hero-updated { display: inline-flex; }
       .logo-text small { display: none; }
       .topnav-cta { display: none; }
       .hero { padding: 56px 16px 88px; }
@@ -1173,7 +1188,10 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <div class="hero-pill">Независимый рейтинг 2026</div>
+    <div class="hero-pills">
+      <div class="hero-pill">Независимый рейтинг 2026</div>
+      <div class="hero-updated">Обновлено: май 2026</div>
+    </div>
     <h1>{{ site.h1|safe }}</h1>
     <p class="hero-sub">{{ site.hero_subtitle }}</p>
     <div class="hero-stats">
