@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, path
 from django.utils.html import format_html
 from django import forms
-from .models import Agency, Category, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage
+from .models import Agency, Category, Review, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage
 
 
 @admin.register(Category)
@@ -50,6 +50,31 @@ class AgencyAdmin(admin.ModelAdmin):
     def display_avg_rating(self, obj):
         return obj.avg_rating
 
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ["agency", "author", "rating", "is_approved", "created_at"]
+    list_filter = ["is_approved", "rating", "agency__city"]
+    list_editable = ["is_approved"]
+    list_display_links = ["author"]
+    search_fields = ["author", "text", "agency__name"]
+    readonly_fields = ["agency", "author", "rating", "text", "source", "created_at"]
+    ordering = ["-created_at"]
+    actions = ["approve", "reject"]
+
+    @admin.display(description="Одобрить выбранные")
+    def approve(self, request, queryset):
+        n = queryset.update(is_approved=True)
+        self.message_user(request, f"Одобрено {n} отзывов.", messages.SUCCESS)
+
+    @admin.display(description="Отклонить выбранные")
+    def reject(self, request, queryset):
+        n = queryset.update(is_approved=False)
+        self.message_user(request, f"Отклонено {n} отзывов.", messages.WARNING)
+
+    def has_add_permission(self, request):
+        return False
 
 
 @admin.register(SiteSettings)

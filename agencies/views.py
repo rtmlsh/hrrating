@@ -88,6 +88,18 @@ def _count_label(count):
 
 
 def city_index(request, slug):
+    # Сначала проверяем — не московское ли агентство это
+    moscow_agency = Agency.objects.filter(slug=slug, city="Москва").first()
+    if moscow_agency:
+        form_errors, saved = {}, False
+        if request.method == "POST":
+            form_errors, saved = _handle_review_post(request, moscow_agency)
+            if saved:
+                return redirect(request.path + "?review=sent#reviews")
+        ctx = _agency_detail_ctx(moscow_agency, None, "", request.GET.get("rsort", "new"))
+        ctx.update({"form_errors": form_errors, "review_sent": request.GET.get("review") == "sent"})
+        return render(request, "agencies/agency_detail.html", ctx)
+
     city_page = get_object_or_404(CityPage, slug=slug, is_published=True)
     categories = Category.objects.all()
     category_slug = request.GET.get("spec", "all")
@@ -131,6 +143,146 @@ def city_index(request, slug):
     if request.GET.get("partial") == "1":
         return render(request, "agencies/_agency_results.html", ctx)
     return render(request, "agencies/index.html", ctx)
+
+
+def _agency_detail_ctx(agency, city_page, city_slug, review_sort="new"):
+    from django.db.models import Avg as _Avg, Count as _Count
+    sort_map = {
+        "new":  "-created_at",
+        "old":  "created_at",
+        "high": "-rating",
+        "low":  "rating",
+    }
+    reviews = agency.reviews.filter(is_approved=True).order_by(sort_map.get(review_sort, "-created_at"))
+    rating = round(agency.avg_rating, 1) if agency.avg_rating else 0.0
+
+    criteria = [
+        ("Качество кандидатов", agency.criteria_quality),
+        ("Скорость закрытия", agency.criteria_speed),
+        ("Цена/качество", agency.criteria_price),
+        ("Поддержка клиентов", agency.criteria_support),
+    ]
+
+    ext_ratings = []
+    for key, label, r_field, c_field, u_field in [
+        ("yandex", "Яндекс.Карты", "ext_yandex_rating", "ext_yandex_count", "ext_yandex_url"),
+        ("google", "Google Maps", "ext_google_rating", "ext_google_count", "ext_google_url"),
+        ("2gis", "2ГИС", "ext_2gis_rating", "ext_2gis_count", "ext_2gis_url"),
+    ]:
+        r = getattr(agency, r_field)
+        if r:
+            ext_ratings.append({
+                "key": key, "label": label,
+                "rating": round(r, 1),
+                "count": getattr(agency, c_field),
+                "url": getattr(agency, u_field),
+            })
+
+    source_agg = (
+        reviews.values("source")
+        .annotate(cnt=_Count("id"), avg=_Avg("rating"))
+        .order_by("source")
+    )
+    SOURCE_LABELS = dict(agency.reviews.model.SOURCE_CHOICES)
+    review_sources = [
+        {"key": s["source"], "label": SOURCE_LABELS.get(s["source"], s["source"]),
+         "count": s["cnt"], "avg": round(s["avg"] or 0, 1)}
+        for s in source_agg if s["cnt"] > 0
+    ]
+
+    # Предложный падеж города
+    CITY_PREP = {
+        "Москва": "Москве", "Санкт-Петербург": "Санкт-Петербурге",
+        "Екатеринбург": "Екатеринбурге", "Новосибирск": "Новосибирске",
+        "Казань": "Казани", "Уфа": "Уфе", "Самара": "Самаре",
+        "Краснодар": "Краснодаре", "Ростов-на-Дону": "Ростове-на-Дону",
+        "Воронеж": "Воронеже", "Челябинск": "Челябинске",
+        "Красноярск": "Красноярске", "Нижний Новгород": "Нижнем Новгороде",
+        "Пермь": "Перми", "Омск": "Омске", "Волгоград": "Волгограде",
+        "Тюмень": "Тюмени", "Уфа": "Уфе", "Иркутск": "Иркутске",
+        "Хабаровск": "Хабаровске", "Владивосток": "Владивостоке",
+        "Ярославль": "Ярославле", "Томск": "Томске", "Барнаул": "Барнауле",
+    }
+    city_prep = CITY_PREP.get(agency.city, agency.city)
+
+    # Похожие агентства: та же категория или тот же город, не текущее
+    cat_ids = list(agency.categories.values_list("id", flat=True))
+    similar_qs = (
+        Agency.objects
+        .exclude(pk=agency.pk)
+        .filter(city=agency.city)
+        .prefetch_related("categories")
+        .annotate(annotated_rating=_Avg("reviews__rating"))
+        .order_by("-annotated_rating")
+    )
+    if cat_ids:
+        similar_qs = similar_qs.filter(categories__id__in=cat_ids).distinct()
+    similar_agencies = [
+        {"obj": a, "rating": round(a.annotated_rating or 0, 1)}
+        for a in similar_qs[:4]
+    ]
+
+    return {
+        "agency": agency,
+        "city_slug": city_slug,
+        "city_page": city_page,
+        "rating": rating,
+        "reviews": reviews,
+        "review_sources": review_sources,
+        "criteria": criteria,
+        "specializations": agency.get_specializations_list(),
+        "external_ratings": ext_ratings,
+        "platform_ratings": [{"key": s["key"], "label": s["label"], "avg": s["avg"], "count": s["count"]} for s in review_sources],
+        "same_as_urls": [u for u in [agency.ext_yandex_url, agency.ext_google_url, agency.ext_2gis_url, agency.website] if u],
+        "review_sort": review_sort,
+        "similar_agencies": similar_agencies,
+        "city_prep": city_prep,
+    }
+
+
+def _handle_review_post(request, agency):
+    """Обрабатывает POST с формой отзыва. Возвращает (errors, saved)."""
+    errors = {}
+    author = request.POST.get("author", "").strip()
+    text   = request.POST.get("text", "").strip()
+    rating = request.POST.get("rating", "").strip()
+
+    if not author:
+        errors["author"] = "Укажите имя"
+    elif len(author) > 150:
+        errors["author"] = "Не более 150 символов"
+
+    if not text:
+        errors["text"] = "Напишите текст отзыва"
+    elif len(text) > 2000:
+        errors["text"] = "Не более 2000 символов"
+
+    if not rating or not rating.isdigit() or int(rating) not in range(1, 6):
+        errors["rating"] = "Выберите оценку от 1 до 5"
+
+    if not errors:
+        from agencies.models import Review as R
+        R.objects.create(agency=agency, author=author, text=text,
+                         rating=int(rating), source="other")
+        return errors, True
+
+    return errors, False
+
+
+def agency_detail(request, city_slug, agency_slug):
+    """Детальная страница агентства не-московских городов: /<city_slug>/<agency_slug>/"""
+    city_page = get_object_or_404(CityPage, slug=city_slug, is_published=True)
+    agency = get_object_or_404(Agency, slug=agency_slug, city=city_page.city_filter)
+
+    form_errors, saved = {}, False
+    if request.method == "POST":
+        form_errors, saved = _handle_review_post(request, agency)
+        if saved:
+            return redirect(request.path + "?review=sent#reviews")
+
+    ctx = _agency_detail_ctx(agency, city_page, city_slug, request.GET.get("rsort", "new"))
+    ctx.update({"form_errors": form_errors, "review_sent": request.GET.get("review") == "sent"})
+    return render(request, "agencies/agency_detail.html", ctx)
 
 
 def terms(request):

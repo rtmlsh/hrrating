@@ -36,6 +36,20 @@ class Agency(models.Model):
     criteria_price = models.FloatField("Цена", default=0)
     criteria_support = models.FloatField("Поддержка", default=0)
     speed_score = models.FloatField("Скорость (0–10)", default=0)
+    slug = models.SlugField("Slug (URL)", max_length=200, unique=True, blank=True, null=True)
+    logo_url = models.URLField("Логотип (URL)", blank=True, help_text="Прямая ссылка на изображение логотипа")
+    ext_yandex_rating = models.FloatField("Яндекс — рейтинг", null=True, blank=True)
+    ext_yandex_count = models.PositiveIntegerField("Яндекс — кол-во отзывов", null=True, blank=True)
+    ext_yandex_url = models.URLField("Яндекс.Карты — URL карточки", blank=True)
+    ext_google_rating = models.FloatField("Google — рейтинг", null=True, blank=True)
+    ext_google_count = models.PositiveIntegerField("Google — кол-во отзывов", null=True, blank=True)
+    ext_google_url = models.URLField("Google Maps — URL карточки", blank=True)
+    ext_2gis_rating = models.FloatField("2ГИС — рейтинг", null=True, blank=True)
+    ext_2gis_count = models.PositiveIntegerField("2ГИС — кол-во отзывов", null=True, blank=True)
+    ext_2gis_url = models.URLField("2ГИС — URL карточки", blank=True)
+    ext_updated_at = models.DateTimeField("Внешние рейтинги обновлены", null=True, blank=True)
+    map_lat = models.FloatField("Широта (карта)", null=True, blank=True)
+    map_lon = models.FloatField("Долгота (карта)", null=True, blank=True)
     created_at = models.DateTimeField("Добавлено", auto_now_add=True)
 
     class Meta:
@@ -57,6 +71,14 @@ class Agency(models.Model):
 
     def get_specializations_list(self):
         return [s.strip() for s in self.specializations.split(",") if s.strip()]
+
+    def get_absolute_url(self):
+        if not self.city or self.city == "Москва":
+            return f"/{self.slug}/"
+        cp = CityPage.objects.filter(city_filter=self.city).first()
+        if cp:
+            return f"/{cp.slug}/{self.slug}/"
+        return f"/{self.slug}/"
 
     @property
     def years_on_market(self):
@@ -297,6 +319,15 @@ class FeedbackMessage(models.Model):
 
 
 class Review(models.Model):
+    SOURCE_CHOICES = [
+        ("yandex", "Яндекс.Карты"),
+        ("google", "Google Maps"),
+        ("2gis", "2ГИС"),
+        ("hh", "hh.ru"),
+        ("zoon", "Zoon"),
+        ("other", "Другой источник"),
+    ]
+
     agency = models.ForeignKey(
         Agency,
         on_delete=models.CASCADE,
@@ -309,6 +340,9 @@ class Review(models.Model):
     )
     text = models.TextField("Текст отзыва", blank=True)
     author = models.CharField("Автор", max_length=150, blank=True)
+    source = models.CharField("Источник", max_length=20, choices=SOURCE_CHOICES, default="other")
+    source_url = models.URLField("Ссылка на отзыв", blank=True, help_text="Прямая ссылка на оригинальный отзыв")
+    is_approved = models.BooleanField("Одобрен", default=False)
     created_at = models.DateTimeField("Дата", auto_now_add=True)
 
     class Meta:

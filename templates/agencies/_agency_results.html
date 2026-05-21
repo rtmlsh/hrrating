@@ -15,7 +15,7 @@
 
       <div class="agency-info">
         <div class="agency-name-row">
-          <span class="agency-name">{{ a.name }}</span>
+          {% if a.slug %}<a class="agency-name agency-name-link" href="{{ a.get_absolute_url }}" onclick="event.stopPropagation()">{{ a.name }}</a>{% else %}<span class="agency-name">{{ a.name }}</span>{% endif %}
           {% for cat in a.categories.all %}
           <span class="tag tag-{{ cat.slug }}">{{ cat.name }}</span>
           {% endfor %}
@@ -56,6 +56,9 @@
           <div class="score-bar-label"><span>Рейтинг</span><span>{% widthratio rating 5 100 %}%</span></div>
           <div class="score-bar"><div class="score-bar-fill" style="width:{% widthratio rating 5 100 %}%"></div></div>
         </div>
+        {% if a.slug %}
+        <a href="{{ a.get_absolute_url }}" class="card-detail-btn" onclick="event.stopPropagation()">Подробнее</a>
+        {% endif %}
       </div>
 
       <div class="chevron">
@@ -124,3 +127,4 @@
     </div>
     {% endfor %}
   </div>
+
