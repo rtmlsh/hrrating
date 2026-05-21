@@ -1264,17 +1264,6 @@
         {% endif %}
       </ul>
 
-      {% if agency.address %}
-      <div id="agency-map" style="margin-top:20px;height:220px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);background:var(--bg-soft);display:flex;align-items:center;justify-content:center;isolation:isolate;position:relative;z-index:0;">
-        <span style="font-size:13px;color:var(--muted);">Загрузка карты…</span>
-      </div>
-      <a href="https://yandex.ru/maps/?text={{ agency.city|urlencode }}+{{ agency.address|urlencode }}"
-         target="_blank" rel="nofollow noopener"
-         style="display:inline-block;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--primary);">
-        Открыть в Яндекс.Картах →
-      </a>
-
-      {% endif %}
     </div>
 
     {% if external_ratings %}
@@ -1748,68 +1737,6 @@
     });
   })();
 
-  /* leaflet map */
-  {% if agency.address %}
-  (function() {
-    var mapEl = document.getElementById('agency-map');
-    if (!mapEl) return;
-
-    {% if agency.map_lat and agency.map_lon %}
-    var savedLat = {{ agency.map_lat }};
-    var savedLon = {{ agency.map_lon }};
-    {% else %}
-    var savedLat = null;
-    var savedLon = null;
-    {% endif %}
-
-    var address = "{{ agency.city|escapejs }}, {{ agency.address|escapejs }}";
-
-    var cssLink = document.createElement('link');
-    cssLink.rel = 'stylesheet';
-    cssLink.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    document.head.appendChild(cssLink);
-
-    var s = document.createElement('script');
-    s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    s.onload = function() {
-      function initMap(lat, lon) {
-        mapEl.innerHTML = '';
-        var map = L.map(mapEl, { zoomControl: true, scrollWheelZoom: false }).setView([lat, lon], 16);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-          maxZoom: 19
-        }).addTo(map);
-        var icon = L.divIcon({
-          html: '<div style="width:16px;height:16px;background:#ef4444;border:2.5px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(239,68,68,.5)"></div>',
-          className: '',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8]
-        });
-        L.marker([lat, lon], { icon: icon }).addTo(map);
-      }
-
-      if (savedLat && savedLon) {
-        initMap(savedLat, savedLon);
-      } else {
-        fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(address) + '&format=json&limit=1', {
-          headers: { 'Accept-Language': 'ru' }
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (!data || !data.length) {
-            mapEl.innerHTML = '<span style="font-size:13px;color:var(--muted);">Адрес не найден на карте</span>';
-            return;
-          }
-          initMap(parseFloat(data[0].lat), parseFloat(data[0].lon));
-        })
-        .catch(function() {
-          mapEl.innerHTML = '<span style="font-size:13px;color:var(--muted);">Не удалось загрузить карту</span>';
-        });
-      }
-    };
-    document.head.appendChild(s);
-  })();
-  {% endif %}
 
   /* info modal */
   function openInfoModal() {
