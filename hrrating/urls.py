@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import RedirectView
-from agencies.sitemaps import StaticSitemap, CityPageSitemap
+from agencies.sitemaps import StaticSitemap, CityPageSitemap, AgencySitemap
 
 sitemaps = {
     "static": StaticSitemap,
     "cities": CityPageSitemap,
+    "agencies": AgencySitemap,
 }
 
 urlpatterns = [
