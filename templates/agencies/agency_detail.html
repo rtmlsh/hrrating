@@ -1060,6 +1060,9 @@
       .fact-chip { font-size: 11px; padding: 3px 8px; }
     }
   </style>
+  {% if recaptcha_site_key %}
+  <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+  {% endif %}
 </head>
 <body>
 
@@ -1445,8 +1448,15 @@
       <h3 class="modal-title">Оставить отзыв</h3>
       <p class="modal-agency-name">{{ agency.name }}</p>
 
-      <form method="post" action="{{ request.path }}" novalidate>
+      <form method="post" action="{{ request.path }}" novalidate id="reviewForm">
         {% csrf_token %}
+        <input type="hidden" name="g-recaptcha-response" id="reviewRecaptchaToken">
+        {% if review_captcha_error %}
+        <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#b91c1c;display:flex;align-items:center;gap:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Не удалось проверить, что вы не робот. Попробуйте ещё раз.
+        </div>
+        {% endif %}
 
         <div class="form-field {% if form_errors.rating %}has-error{% endif %}">
           <label>Оценка <span style="color:#ef4444">*</span></label>
@@ -1684,7 +1694,21 @@
     if (e.key === 'Escape') { closeReviewModal(); closeInfoModal(); }
   });
   // открыть автоматически если есть ошибки или успех
-  {% if form_errors or review_sent %}openReviewModal();{% endif %}
+  {% if form_errors or review_sent or review_captcha_error %}openReviewModal();{% endif %}
+
+  {% if recaptcha_site_key %}
+  // reCAPTCHA v3: получаем токен перед отправкой формы отзыва
+  document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var form = this;
+    grecaptcha.ready(function() {
+      grecaptcha.execute('{{ recaptcha_site_key }}', {action: 'review'}).then(function(token) {
+        document.getElementById('reviewRecaptchaToken').value = token;
+        form.submit();
+      });
+    });
+  });
+  {% endif %}
 
   /* anchor nav highlight */
   (function() {

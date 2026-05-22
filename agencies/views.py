@@ -91,13 +91,18 @@ def city_index(request, slug):
     # Сначала проверяем — не московское ли агентство это
     moscow_agency = Agency.objects.filter(slug=slug, city="Москва").first()
     if moscow_agency:
-        form_errors, saved = {}, False
+        form_errors, captcha_error = {}, False
         if request.method == "POST":
-            form_errors, saved = _handle_review_post(request, moscow_agency)
+            form_errors, saved, captcha_error = _handle_review_post(request, moscow_agency)
             if saved:
                 return redirect(request.path + "?review=sent#reviews")
         ctx = _agency_detail_ctx(moscow_agency, None, "", request.GET.get("rsort", "new"))
-        ctx.update({"form_errors": form_errors, "review_sent": request.GET.get("review") == "sent"})
+        ctx.update({
+            "form_errors": form_errors,
+            "review_sent": request.GET.get("review") == "sent",
+            "review_captcha_error": captcha_error,
+            "recaptcha_site_key": settings.RECAPTCHA_SITE_KEY,
+        })
         return render(request, "agencies/agency_detail.html", ctx)
 
     city_page = get_object_or_404(CityPage, slug=slug, is_published=True)
@@ -241,11 +246,12 @@ def _agency_detail_ctx(agency, city_page, city_slug, review_sort="new"):
 
 
 def _handle_review_post(request, agency):
-    """Обрабатывает POST с формой отзыва. Возвращает (errors, saved)."""
+    """Обрабатывает POST с формой отзыва. Возвращает (errors, saved, captcha_error)."""
     errors = {}
     author = request.POST.get("author", "").strip()
     text   = request.POST.get("text", "").strip()
     rating = request.POST.get("rating", "").strip()
+    token  = request.POST.get("g-recaptcha-response", "")
 
     if not author:
         errors["author"] = "Укажите имя"
@@ -260,13 +266,16 @@ def _handle_review_post(request, agency):
     if not rating or not rating.isdigit() or int(rating) not in range(1, 6):
         errors["rating"] = "Выберите оценку от 1 до 5"
 
-    if not errors:
-        from agencies.models import Review as R
-        R.objects.create(agency=agency, author=author, text=text,
-                         rating=int(rating), source="other")
-        return errors, True
+    if errors:
+        return errors, False, False
 
-    return errors, False
+    if not _verify_recaptcha(token):
+        return errors, False, True
+
+    from agencies.models import Review as R
+    R.objects.create(agency=agency, author=author, text=text,
+                     rating=int(rating), source="other")
+    return errors, True, False
 
 
 def agency_detail(request, city_slug, agency_slug):
@@ -274,14 +283,19 @@ def agency_detail(request, city_slug, agency_slug):
     city_page = get_object_or_404(CityPage, slug=city_slug, is_published=True)
     agency = get_object_or_404(Agency, slug=agency_slug, city=city_page.city_filter)
 
-    form_errors, saved = {}, False
+    form_errors, captcha_error = {}, False
     if request.method == "POST":
-        form_errors, saved = _handle_review_post(request, agency)
+        form_errors, saved, captcha_error = _handle_review_post(request, agency)
         if saved:
             return redirect(request.path + "?review=sent#reviews")
 
     ctx = _agency_detail_ctx(agency, city_page, city_slug, request.GET.get("rsort", "new"))
-    ctx.update({"form_errors": form_errors, "review_sent": request.GET.get("review") == "sent"})
+    ctx.update({
+        "form_errors": form_errors,
+        "review_sent": request.GET.get("review") == "sent",
+        "review_captcha_error": captcha_error,
+        "recaptcha_site_key": settings.RECAPTCHA_SITE_KEY,
+    })
     return render(request, "agencies/agency_detail.html", ctx)
 
 
