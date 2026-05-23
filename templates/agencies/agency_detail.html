@@ -923,12 +923,7 @@
       .faq-answer { padding: 12px 14px 14px; }
     }
 
-    /* FOOTER */
-    .page-footer {
-      margin-top: 60px; text-align: center;
-      padding: 28px; border-top: 1px solid var(--border);
-      font-size: 13px; color: var(--muted);
-    }
+    /* footer — см. _footer.html */
 
     @media (max-width: 900px) {
       .detail-hero { grid-template-columns: 1fr; gap: 20px; }
@@ -1578,9 +1573,7 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
 
-<footer class="page-footer">
-  <strong>HR Rating</strong> — независимый рейтинг кадровых агентств © 2026
-</footer>
+{% include 'agencies/_footer.html' %}
 
 <script>
   function starHtml(rating, size, id) {

@@ -1,0 +1,118 @@
+<style>
+  /* ═══════════════ SITEWIDE FOOTER ═══════════════ */
+  footer.site-footer {
+    background: #050b1c;
+    color: #94a3b8;
+    padding: 72px 24px 32px;
+    font-size: 14px;
+    line-height: 1.7;
+    position: relative;
+    margin-top: 60px;
+  }
+  .ftr-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .ftr-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+  .ftr-logo-mark {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 13px; color: #fff;
+    font-family: 'Unbounded', sans-serif;
+    letter-spacing: -.5px;
+    flex-shrink: 0;
+  }
+  .ftr-logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  .ftr-logo-text small {
+    font-size: 10px;
+    font-weight: 400;
+    color: #64748b;
+    letter-spacing: .02em;
+    font-family: 'Inter', sans-serif;
+  }
+  .ftr-tagline {
+    color: #94a3b8;
+    max-width: 480px;
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .ftr-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #4f46e5;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 13px 28px;
+    border-radius: 12px;
+    transition: background .15s, transform .1s;
+  }
+  .ftr-cta:hover { background: #3730a3; transform: translateY(-1px); }
+  .ftr-bottom {
+    max-width: 1200px;
+    margin: 28px auto 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    font-size: 12.5px;
+    color: #475569;
+  }
+  .ftr-copy { max-width: 760px; line-height: 1.65; }
+  .ftr-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .ftr-links a { color: #64748b; text-decoration: none; transition: color .15s; }
+  .ftr-links a:hover { color: #fff; }
+
+  @media (max-width: 560px) {
+    footer.site-footer { padding: 48px 20px 24px; }
+    .ftr-bottom { flex-direction: column; gap: 14px; }
+  }
+</style>
+
+<footer class="site-footer">
+  <div class="ftr-inner">
+    <a href="/" class="ftr-brand">
+      <div class="ftr-logo-mark"><span>HR</span></div>
+      <span class="ftr-logo-text">Rating<small>HR-агентства · 2026</small></span>
+    </a>
+    <p class="ftr-tagline">Независимый рейтинг кадровых агентств. Без рекламы, накруток и платных позиций — только реальные оценки рынка.</p>
+    <a href="/feedback/" class="ftr-cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Написать нам
+    </a>
+  </div>
+  <div class="ftr-bottom">
+    <div class="ftr-copy">© 2026 HR Rating. Все права защищены. Информация не является публичной офертой — подробности на официальных сайтах кадровых агентств.</div>
+    <div class="ftr-links">
+      <a href="/terms/">Условия использования</a>
+      <a href="/privacy/">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>

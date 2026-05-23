@@ -266,16 +266,7 @@
     }
     .success-link:hover { background: var(--primary); color: #fff; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: #050b1c;
-      color: #64748b;
-      text-align: center;
-      padding: 36px 24px;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-    footer strong { color: #fff; font-weight: 700; font-family: 'Unbounded', sans-serif; letter-spacing: -.3px; }
+    /* footer — см. _footer.html */
 
     @media (max-width: 600px) {
       .card { padding: 32px 24px; }
@@ -374,9 +365,7 @@
   </div>
 </main>
 
-<footer>
-  <strong>HR Rating</strong> &mdash; независимый рейтинг кадровых агентств &copy; 2026
-</footer>
+{% include 'agencies/_footer.html' %}
 
 </body>
 </html>

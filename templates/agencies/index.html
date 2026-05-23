@@ -1016,59 +1016,7 @@
     }
     .cta-btn-secondary:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.4); }
 
-    /* ═══════════════ FOOTER ═══════════════ */
-    footer {
-      background: #050b1c;
-      color: #94a3b8;
-      padding: 72px 24px 32px;
-      font-size: 14px;
-      line-height: 1.7;
-      position: relative;
-    }
-    .footer-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding-bottom: 56px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-    .footer-brand-logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .footer-brand-logo .logo-text { color: #fff; }
-    .footer-brand-logo .logo-text small { color: #64748b; }
-    .footer-tagline { color: #94a3b8; max-width: 480px; font-size: 14px; line-height: 1.65; margin-bottom: 32px; }
-    .footer-feedback-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--primary);
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 13px 28px;
-      border-radius: 12px;
-      transition: background .15s, transform .1s;
-    }
-    .footer-feedback-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 28px auto 0;
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      font-size: 12.5px;
-      color: #475569;
-    }
-    .footer-bottom-left { max-width: 760px; line-height: 1.65; }
-    .footer-bottom-right { display: flex; gap: 20px; flex-wrap: wrap; }
-    .footer-bottom-right a { color: #64748b; text-decoration: none; transition: color .15s; }
-    .footer-bottom-right a:hover { color: #fff; }
+    /* footer — см. _footer.html */
 
     /* ═══════════════ SCROLL TO TOP ═══════════════ */
     /* PAGINATION */
@@ -1480,27 +1428,7 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand-logo">
-      <div class="logo-mark"><span>HR</span></div>
-      <span class="logo-text">Rating<small>HR-агентства · 2026</small></span>
-    </div>
-    <p class="footer-tagline">Независимый рейтинг кадровых агентств. Без рекламы, накруток и платных позиций — только реальные оценки рынка.</p>
-    <a href="/feedback/" class="footer-feedback-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Написать нам
-    </a>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="footer-bottom-left">© 2026 HR Rating. Все права защищены. Информация не является публичной офертой — подробности на официальных сайтах кадровых агентств.</div>
-    <div class="footer-bottom-right">
-      <a href="/terms/">Условия использования</a>
-      <a href="/privacy/">Политика конфиденциальности</a>
-    </div>
-  </div>
-</footer>
+{% include 'agencies/_footer.html' %}
 
 <button class="scroll-top" id="scroll-top" aria-label="Наверх">
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
