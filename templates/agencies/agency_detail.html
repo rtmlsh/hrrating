@@ -275,57 +275,7 @@
     .breadcrumb .sep { opacity: .45; }
     .breadcrumb .current { color: var(--text); }
 
-    /* NAV */
-    .topnav {
-      position: sticky; top: 0; z-index: 1000;
-      background: rgba(255,255,255,.88);
-      backdrop-filter: saturate(160%) blur(8px);
-      -webkit-backdrop-filter: saturate(160%) blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    .topnav-inner {
-      max-width: 1100px; margin: 0 auto;
-      padding: 16px 28px;
-      display: flex; align-items: center; gap: 20px;
-    }
-    .logo-link { text-decoration: none; display: inline-flex; align-items: center; gap: 10px; }
-    .logo-mark {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: var(--ink); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 12px;
-      position: relative; overflow: hidden;
-    }
-    .logo-mark::before {
-      content: ''; position: absolute; inset: auto -12px -12px auto;
-      width: 24px; height: 24px; border-radius: 50%; background: var(--primary);
-    }
-    .logo-mark::after {
-      content: ''; position: absolute; top: -5px; left: -5px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--amber); opacity: .9;
-    }
-    .logo-mark span { position: relative; z-index: 1; }
-    .logo-text {
-      font-family: 'Unbounded', sans-serif; font-weight: 700;
-      font-size: 16px; letter-spacing: -.5px; color: var(--text);
-    }
-    .logo-text small {
-      display: block; font-family: 'Manrope', sans-serif;
-      font-size: 10px; font-weight: 600; color: var(--muted);
-      letter-spacing: .3px; text-transform: uppercase; margin-top: 1px;
-    }
-    .topnav-cta {
-      margin-left: auto;
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 11px 20px;
-      background: var(--ink); border-radius: 99px;
-      color: #fff; font-size: 13.5px; font-weight: 700;
-      text-decoration: none; white-space: nowrap; letter-spacing: -.1px;
-      transition: background .15s, transform .1s;
-    }
-    .topnav-cta:hover { background: var(--primary); }
-    .topnav-cta:active { transform: scale(.97); }
+    /* header — см. _header.html */
 
     /* RATING CRITERIA LABEL */
     .rating-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-top: 6px; }
@@ -1063,18 +1013,7 @@
 </head>
 <body>
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a href="/" class="logo-link">
-      <div class="logo-mark"><span>HR</span></div>
-      <span class="logo-text">Rating <small>HR-агентства · 2026</small></span>
-    </a>
-    <a href="/feedback/" class="topnav-cta">
-      Обратная связь
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </a>
-  </div>
-</nav>
+{% include 'agencies/_header.html' %}
 
 <nav class="anchor-nav" aria-label="Навигация по странице">
   <div class="anchor-nav-inner">

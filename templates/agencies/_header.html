@@ -1,0 +1,202 @@
+<style>
+  /* ═══════════════ SITEWIDE HEADER ═══════════════ */
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: saturate(160%) blur(8px);
+    -webkit-backdrop-filter: saturate(160%) blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+  .topnav-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .topnav--with-menu .topnav-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  /* Логотип */
+  .logo-link { text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
+  .logo-mark {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: #0c1830;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: -.3px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .logo-mark::before {
+    content: '';
+    position: absolute;
+    inset: auto -14px -14px auto;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #0066ff;
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    top: -6px; left: -6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #ffb800;
+    opacity: .9;
+  }
+  .logo-mark span { position: relative; z-index: 1; }
+  .logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -.6px;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo-text small {
+    display: block;
+    font-family: 'Manrope', sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+
+  /* Меню-якоря (только на главной) */
+  .topnav-menu {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+  }
+  .topnav-menu a {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border-radius: 99px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background .15s, color .15s;
+  }
+  .topnav-menu a:hover { background: #f7f8fb; color: #0066ff; }
+
+  /* Правая часть */
+  .topnav-right { display: flex; align-items: center; gap: 10px; }
+  .topnav-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: #e6f9ee;
+    border-radius: 99px;
+    font-size: 12px;
+    color: #065f46;
+    font-weight: 600;
+  }
+  .topnav-meta::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 0 3px rgba(16,185,129,.2);
+  }
+  .topnav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 20px;
+    background: #0c1830;
+    border-radius: 99px;
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .15s, transform .1s;
+    white-space: nowrap;
+    letter-spacing: -.1px;
+  }
+  .topnav-cta:hover { background: #0066ff; }
+  .topnav-cta:active { transform: scale(.97); }
+
+  /* Кнопка «К рейтингу» (внутренние страницы) */
+  .header-back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 99px;
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .header-back:hover { border-color: #0066ff; background: #eaf2ff; color: #0066ff; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .topnav-menu { display: none; }
+    .topnav--with-menu .topnav-inner { grid-template-columns: auto 1fr auto; }
+  }
+  @media (max-width: 768px) {
+    .topnav-inner { padding: 12px 16px; gap: 12px; }
+    .topnav-meta { display: none; }
+    .logo-text small { display: none; }
+    .topnav--with-menu .topnav-cta { display: none; }
+  }
+</style>
+
+<nav class="topnav{% if show_menu %} topnav--with-menu{% endif %}">
+  <div class="topnav-inner">
+    <a href="/" class="logo-link">
+      <div class="logo-mark"><span>HR</span></div>
+      <span class="logo-text">
+        Rating
+        <small>HR-агентства · 2026</small>
+      </span>
+    </a>
+
+    {% if show_menu %}
+    <div class="topnav-menu">
+      <a href="#rating">Рейтинг</a>
+      <a href="#methodology">Методология</a>
+      <a href="#faq">FAQ</a>
+      <a href="#cities">Города</a>
+    </div>
+    {% endif %}
+
+    <div class="topnav-right">
+      {% if show_menu %}
+      <span class="topnav-meta">Обновлено: май 2026</span>
+      {% endif %}
+      {% if back_link %}
+      <a href="/" class="header-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        К рейтингу
+      </a>
+      {% else %}
+      <a href="/feedback/" class="topnav-cta">
+        Обратная связь
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
