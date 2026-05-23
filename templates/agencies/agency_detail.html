@@ -1546,12 +1546,18 @@
   renderStars('ert-{{ e.key }}', {{ e.rating|default:0 }}, 14);
   {% endfor %}
 
-  /* scroll to top */
+  /* scroll to top + hide bottom nav at page end */
   (function() {
     var btn = document.getElementById('scroll-top');
+    var bnav = document.querySelector('.detail-bottom-nav');
     window.addEventListener('scroll', function() {
       btn.classList.toggle('visible', window.scrollY > 400);
-    });
+      if (bnav) {
+        var atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 40;
+        bnav.style.transform = atBottom ? 'translateY(100%)' : '';
+        bnav.style.transition = 'transform .25s ease';
+      }
+    }, { passive: true });
     btn.addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
