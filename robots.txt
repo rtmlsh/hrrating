@@ -1,6 +1,14 @@
 User-agent: *
-Allow: /
+# Служебные разделы
 Disallow: /admin/
-Disallow: /feedback/?sent=1
+
+# GET-параметры создают дублированный контент
+Disallow: /*?q=
+Disallow: /*?sort=
+Disallow: /*?spec=
+Disallow: /*?partial=
+Disallow: /*?rsort=
+Disallow: /*?review=
+Disallow: /*?sent=
 
 Sitemap: https://luchshie-hr-agentstva.pro/sitemap.xml
