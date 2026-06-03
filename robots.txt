@@ -1,8 +1,5 @@
 User-agent: *
-# Служебные разделы
 Disallow: /admin/
-
-# GET-параметры создают дублированный контент
 Disallow: /*?q=
 Disallow: /*?sort=
 Disallow: /*?spec=
