@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, path
 from django.utils.html import format_html
 from django import forms
-from .models import Agency, Category, Review, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage
+from .models import Agency, Category, Review, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage, ResumeConstructorFaq, ResumeConstructorPage
 
 
 @admin.register(Category)
@@ -112,6 +112,41 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         from django.urls import reverse
         return HttpResponseRedirect(
             reverse("admin:agencies_sitesettings_change", args=[obj.pk])
+        )
+
+
+class ResumeConstructorFaqInline(admin.TabularInline):
+    model = ResumeConstructorFaq
+    extra = 1
+    fields = ["question", "answer", "sort_order", "is_active"]
+    ordering = ["sort_order"]
+    verbose_name = "Вопрос FAQ"
+    verbose_name_plural = "FAQ страницы"
+
+
+@admin.register(ResumeConstructorPage)
+class ResumeConstructorPageAdmin(admin.ModelAdmin):
+    inlines = [ResumeConstructorFaqInline]
+    fieldsets = (
+        ("SEO / Мета-теги", {
+            "fields": ("meta_title", "meta_description"),
+        }),
+        ("Open Graph", {
+            "fields": ("og_title", "og_description"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return not ResumeConstructorPage.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        obj = ResumeConstructorPage.get()
+        return HttpResponseRedirect(
+            reverse("admin:agencies_resumeconstructorpage_change", args=[obj.pk])
         )
 
 

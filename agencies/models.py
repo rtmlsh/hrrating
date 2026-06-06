@@ -352,3 +352,63 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.agency.name} — {self.rating}★"
+
+
+class ResumeConstructorFaq(models.Model):
+    page = models.ForeignKey(
+        "ResumeConstructorPage",
+        on_delete=models.CASCADE,
+        related_name="faq_items",
+        verbose_name="Страница",
+        null=True, blank=True,
+    )
+    question = models.CharField("Вопрос", max_length=300)
+    answer = models.TextField("Ответ")
+    sort_order = models.PositiveSmallIntegerField("Порядок", default=0)
+    is_active = models.BooleanField("Активен", default=True)
+
+    class Meta:
+        verbose_name = "FAQ конструктора резюме"
+        verbose_name_plural = "FAQ конструктора резюме"
+        ordering = ["sort_order"]
+
+    def __str__(self):
+        return self.question
+
+
+class ResumeConstructorPage(models.Model):
+    meta_title = models.CharField(
+        "Title", max_length=200,
+        default="Конструктор резюме онлайн — создать резюме бесплатно | HR Rating",
+    )
+    meta_description = models.TextField(
+        "Meta Description",
+        default="Конструктор резюме онлайн — создайте профессиональное резюме бесплатно за 5 минут. Без регистрации, скачать PDF, 4 шаблона.",
+    )
+    og_title = models.CharField(
+        "OG Title", max_length=200, blank=True,
+        default="Конструктор резюме онлайн — бесплатно | HR Rating",
+    )
+    og_description = models.TextField(
+        "OG Description", blank=True,
+        default="Создайте резюме за 5 минут. Бесплатно, без регистрации, скачать PDF.",
+    )
+
+    class Meta:
+        verbose_name = "Настройки страницы конструктора"
+        verbose_name_plural = "Настройки страницы конструктора"
+
+    def __str__(self):
+        return "Настройки страницы конструктора"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def get(cls):
+        obj, _ = cls.objects.get_or_create(pk=1)
+        return obj
