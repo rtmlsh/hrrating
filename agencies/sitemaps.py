@@ -3,11 +3,20 @@ from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 from .models import Agency, CityPage
 
-LAST_UPDATED = date(2026, 5, 16)
+FALLBACK_DATE = date(2026, 5, 16)
+
+STATIC_PRIORITIES = {
+    "index": 1.0,
+    "salary_calculator": 0.9,
+    "resume_constructor": 0.9,
+    "feedback": 0.3,
+    "privacy": 0.2,
+    "terms": 0.2,
+}
 
 
 class StaticSitemap(Sitemap):
-    priority = 1.0
+    changefreq = "monthly"
 
     def items(self):
         return ["index", "salary_calculator", "resume_constructor", "feedback", "privacy", "terms"]
@@ -15,12 +24,16 @@ class StaticSitemap(Sitemap):
     def location(self, item):
         return reverse(item)
 
+    def priority(self, item):
+        return STATIC_PRIORITIES.get(item, 0.5)
+
     def lastmod(self, item):
-        return LAST_UPDATED
+        return FALLBACK_DATE
 
 
 class CityPageSitemap(Sitemap):
     priority = 0.9
+    changefreq = "weekly"
 
     def items(self):
         return CityPage.objects.filter(is_published=True)
@@ -29,7 +42,10 @@ class CityPageSitemap(Sitemap):
         return obj.get_absolute_url()
 
     def lastmod(self, obj):
-        return LAST_UPDATED
+        latest = Agency.objects.filter(city=obj.city_filter).order_by("-created_at").values_list("created_at", flat=True).first()
+        if latest:
+            return latest.date()
+        return FALLBACK_DATE
 
 
 class AgencySitemap(Sitemap):
@@ -43,4 +59,7 @@ class AgencySitemap(Sitemap):
         return obj.get_absolute_url()
 
     def lastmod(self, obj):
-        return LAST_UPDATED
+        latest_review = obj.reviews.order_by("-created_at").values_list("created_at", flat=True).first()
+        if latest_review:
+            return latest_review.date()
+        return obj.created_at.date()

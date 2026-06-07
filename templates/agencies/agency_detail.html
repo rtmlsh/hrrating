@@ -110,19 +110,19 @@
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "🏆 HR Rating",
+        "name": "HR Rating",
         "item": "https://luchshie-hr-agentstva.pro/"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "📍 {% if city_page %}{{ city_page.name|escapejs }}{% else %}Агентства Москвы{% endif %}",
+        "name": "{% if city_page %}{{ city_page.name|escapejs }}{% else %}Агентства Москвы{% endif %}",
         "item": "https://luchshie-hr-agentstva.pro/{% if city_slug %}{{ city_slug }}/{% endif %}"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "🏢 {{ agency.name|escapejs }}",
+        "name": "{{ agency.name|escapejs }}",
         "item": "https://luchshie-hr-agentstva.pro/{% if city_slug %}{{ city_slug }}/{% endif %}{{ agency.slug }}/"
       }
     ]
@@ -160,7 +160,7 @@
     "mainEntity": [
       {% if agency.address %}{
         "@type": "Question",
-        "name": "📍 Какой адрес у {{ agency.name|escapejs }}?",
+        "name": "Какой адрес у {{ agency.name|escapejs }}?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "{{ agency.name|escapejs }} находится по адресу: {{ agency.address|escapejs }}{% if agency.city %}, {{ agency.city|escapejs }}{% endif %}."
@@ -168,7 +168,7 @@
       },{% endif %}
       {% if agency.phone %}{
         "@type": "Question",
-        "name": "☎️ Доступен ли номер телефона {{ agency.name|escapejs }}?",
+        "name": "Доступен ли номер телефона {{ agency.name|escapejs }}?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Да, {{ agency.name|escapejs }} доступен по телефону {{ agency.phone|escapejs }}."
@@ -176,7 +176,7 @@
       },{% endif %}
       {
         "@type": "Question",
-        "name": "🕖 Какой режим работы {{ agency.name|escapejs }}?",
+        "name": "Какой режим работы {{ agency.name|escapejs }}?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "{{ agency.name|escapejs }} работает в стандартное рабочее время, как правило с понедельника по пятницу с 9:00 до 18:00. Рекомендуем уточнить актуальный режим работы по телефону{% if agency.phone %} {{ agency.phone|escapejs }}{% endif %} или на официальном сайте{% if agency.website %} {{ agency.website|escapejs }}{% endif %}."
@@ -184,7 +184,7 @@
       },
       {
         "@type": "Question",
-        "name": "⭐ Как посетители оценивают уровень сервиса {{ agency.name|escapejs }}?",
+        "name": "Как посетители оценивают уровень сервиса {{ agency.name|escapejs }}?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "{% if reviews %}По данным независимого рейтинга HR Rating, {{ agency.name|escapejs }} получил оценку {{ rating }} из 5 на основе {{ reviews|length }} отзывов{% if agency.criteria_quality %} (качество подбора — {{ agency.criteria_quality }}/5{% if agency.criteria_speed %}, скорость закрытия — {{ agency.criteria_speed }}/5{% endif %}{% if agency.criteria_price %}, цена/качество — {{ agency.criteria_price }}/5{% endif %}{% if agency.criteria_support %}, поддержка — {{ agency.criteria_support }}/5{% endif %}){% endif %}.{% else %}По данным независимого рейтинга HR Rating, {{ agency.name|escapejs }} имеет высокую экспертизу в подборе персонала{% if city_prep %} в {{ city_prep|escapejs }}{% endif %}.{% endif %}"
