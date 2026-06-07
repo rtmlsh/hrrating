@@ -2,10 +2,31 @@ import urllib.request
 import urllib.parse
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Avg
 from django.conf import settings
-from .models import Agency, Category, SiteSettings, CityLink, FeedbackMessage, FaqItem, MethodologyBlock, CityPage, ResumeConstructorFaq, ResumeConstructorPage
+from .models import (
+    Agency,
+    Category,
+    CityLink,
+    CityPage,
+    FaqItem,
+    FeedbackMessage,
+    MethodologyBlock,
+    ResumeConstructorFaq,
+    ResumeConstructorPage,
+    SiteSettings,
+)
+from .salary_data import (
+    FAQ_ITEMS,
+    MONTHS_2026,
+    NDFL_RATES,
+    SOURCE_LINKS,
+    build_payload,
+    calculate_salary,
+    top_table_rows,
+)
 
 
 def _verify_recaptcha(token, min_score=0.5):
@@ -108,6 +129,48 @@ def resume_constructor(request):
         ]
     page = ResumeConstructorPage.get()
     return render(request, "agencies/resume_constructor.html", {"faq_static": faq_static, "page": page})
+
+
+def salary_calculator(request):
+    from datetime import date as _date
+    current_month = _date.today().month
+    payload = build_payload({
+        "profession": request.GET.get("profession", "HR-менеджер"),
+        "level": request.GET.get("level", "middle"),
+        "industry": request.GET.get("industry", "hr"),
+        "city": request.GET.get("city", "moscow"),
+    })
+    context = {
+        "payload": payload,
+        "result": payload["result"],
+        "professions": payload["professions"],
+        "levels": payload["levels"],
+        "industries": payload["industries"],
+        "cities": payload["cities"],
+        "top_salary_rows": top_table_rows(),
+        "faq_items": FAQ_ITEMS,
+        "source_links": SOURCE_LINKS,
+        "ndfl_months": MONTHS_2026,
+        "ndfl_rates": NDFL_RATES,
+        "current_month": current_month,
+    }
+    return render(request, "agencies/salary_calculator.html", context)
+
+
+def salary_api(request):
+    result = calculate_salary(
+        profession_name=request.GET.get("profession", "HR-менеджер"),
+        level_key=request.GET.get("level", "middle"),
+        industry_key=request.GET.get("industry", "hr"),
+        city_key=request.GET.get("city", "moscow"),
+    )
+    payload = build_payload({
+        "profession": result["profession"],
+        "level": result["level"],
+        "industry": result["industry"],
+        "city": result["city"],
+    })
+    return JsonResponse(payload)
 
 
 def _count_label(count):

@@ -1,0 +1,1371 @@
+{% load static %}<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+  <link rel="canonical" href="https://luchshie-hr-agentstva.pro/kalkulyator-zarplaty/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@700;800&display=swap" rel="stylesheet">
+  <title>Калькулятор зарплаты 2026 — НДФЛ онлайн, расчёт суммы на руки</title>
+  <meta name="description" content="Рассчитайте зарплату на руки с учётом НДФЛ онлайн. Прогрессивная шкала 13–22%, учёт рабочих дней. Также: зарплатная вилка по 50+ HR-профессиям в Москве 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="Калькулятор зарплаты 2026 — НДФЛ и сумма на руки">
+  <meta property="og:description" content="Онлайн-расчёт НДФЛ и зарплаты на руки. Два режима: из оклада и из желаемой суммы. Прогрессивная шкала 2026.">
+  <meta property="og:url" content="https://luchshie-hr-agentstva.pro/kalkulyator-zarplaty/">
+  <meta property="og:image" content="https://luchshie-hr-agentstva.pro/static/og-salary-calculator.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Калькулятор зарплаты и НДФЛ 2026",
+      "url": "https://luchshie-hr-agentstva.pro/kalkulyator-zarplaty/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "RUB" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://luchshie-hr-agentstva.pro/" },
+        { "@type": "ListItem", "position": 2, "name": "Калькулятор зарплаты", "item": "https://luchshie-hr-agentstva.pro/kalkulyator-zarplaty/" }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for question, answer in faq_items %}
+        {
+          "@type": "Question",
+          "name": "{{ question|escapejs }}",
+          "acceptedAnswer": { "@type": "Answer", "text": "{{ answer|striptags|escapejs }}" }
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ]
+    }
+  ]
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0052cc;
+      --primary-50: #eef4ff;
+      --primary-100: #dbeafe;
+      --green: #059669;
+      --green-50: #ecfdf5;
+      --green-100: #d1fae5;
+      --red: #dc2626;
+      --red-50: #fef2f2;
+      --amber: #d97706;
+      --ink: #0f172a;
+      --ink-2: #1e293b;
+      --text: #334155;
+      --muted: #64748b;
+      --muted-2: #94a3b8;
+      --bg: #f1f5f9;
+      --bg-white: #ffffff;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-sm: 0 1px 3px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
+      --shadow-md: 0 4px 16px rgba(15,23,42,.08), 0 2px 6px rgba(15,23,42,.05);
+      --shadow-lg: 0 10px 40px rgba(15,23,42,.10), 0 4px 12px rgba(15,23,42,.06);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    img { display: block; max-width: 100%; }
+    .container { width: min(1160px, calc(100% - 32px)); margin: 0 auto; }
+
+    /* ─── PAGE TOP ─── */
+    .page-top {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 0 32px;
+    }
+    .breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .breadcrumbs a { color: var(--muted); }
+    .breadcrumbs a:hover { color: var(--primary); }
+    .breadcrumbs .sep { color: var(--muted-2); }
+    .page-top h1 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(26px, 3.8vw, 44px);
+      line-height: 1.1;
+      color: var(--ink);
+      max-width: 820px;
+      margin-bottom: 14px;
+    }
+    .page-desc {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 680px;
+    }
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ink-2);
+    }
+    .trust-pill svg { color: var(--primary); flex-shrink: 0; }
+
+    /* ─── NDFL CALCULATOR ─── */
+    .ndfl-section { padding: 36px 0 48px; }
+    .calc-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    /* Tabs */
+    .calc-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      padding: 6px 6px 0;
+      gap: 2px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--ink); background: rgba(0,0,0,.04); }
+    .tab-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 -2px 0 inset var(--primary);
+    }
+
+    /* Body grid */
+    .calc-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+    .calc-inputs {
+      padding: 28px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .calc-results {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Fields */
+    .field-group { margin-bottom: 18px; }
+    .field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-2);
+      margin-bottom: 7px;
+    }
+    .optional { font-weight: 600; color: var(--muted-2); }
+    .field-input, .field-select {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .field-input::placeholder { color: var(--muted-2); font-weight: 500; }
+    .field-input:focus, .field-select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,102,255,.12);
+    }
+    .field-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .inline-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* Large salary input */
+    #salary-input {
+      height: 56px;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 0 16px;
+      letter-spacing: -.3px;
+    }
+    #salary-input:focus { border-color: var(--primary); }
+
+    /* ─── RESULTS ─── */
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: var(--muted-2);
+      text-align: center;
+    }
+    .empty-state svg { opacity: .4; }
+    .empty-state p { font-size: 14px; font-weight: 600; line-height: 1.5; }
+
+    .result-display { flex: 1; display: flex; flex-direction: column; gap: 0; }
+
+    .result-block {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-block:last-child { border-bottom: none; }
+    .result-block-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .result-block-value {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+    .result-block.is-net .result-block-value { color: var(--green); }
+    .result-block.is-ndfl .result-block-value { color: var(--red); }
+    .result-block.is-gross .result-block-value { color: var(--ink); }
+    .result-block-sub {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Breakdown */
+    .breakdown {
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .breakdown-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .bd-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .bd-step:last-child { border-bottom: none; }
+    .bd-num {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary-50);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    /* ─── PROFESSION SALARY SECTION ─── */
+    .profession-section {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .section-kicker {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 3vw, 36px);
+      line-height: 1.1;
+      color: var(--ink);
+      max-width: 700px;
+    }
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .section-note {
+      max-width: 340px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--muted);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .prof-lookup-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .prof-lookup-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .prof-inputs {
+      padding: 28px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .prof-result {
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Level tabs */
+    .level-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .level-tab { position: relative; }
+    .level-tab input { position: absolute; opacity: 0; pointer-events: none; }
+    .level-tab span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xs);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .level-tab input:checked + span {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+    .level-tab span:hover { border-color: var(--ink-2); color: var(--ink-2); }
+
+    .prof-result-empty {
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .prof-result-empty svg { margin: 0 auto 12px; opacity: .35; }
+
+    .prof-result-kicker {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .prof-result-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+    .prof-median {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -.5px;
+      margin-bottom: 6px;
+    }
+    .prof-range {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .prof-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .prof-meta-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      padding: 10px 12px;
+    }
+    .prof-meta-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+    .prof-meta-value { font-size: 13px; font-weight: 700; color: var(--ink-2); }
+
+    .source-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 14px 32px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .source-strip span { font-size: 12px; font-weight: 700; color: var(--muted); }
+    .source-strip a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-2);
+      background: var(--surface);
+      transition: border-color .15s, color .15s;
+    }
+    .source-strip a:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ─── TABLE ─── */
+    .table-section { padding: 56px 0; }
+    .salary-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .salary-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+    .salary-table thead th {
+      padding: 14px 18px;
+      text-align: left;
+      background: var(--ink);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .salary-table thead th:first-child { border-radius: var(--radius) 0 0 0; }
+    .salary-table thead th:last-child { border-radius: 0 var(--radius) 0 0; }
+    .salary-table tbody td {
+      padding: 14px 18px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .salary-table tbody td:first-child { font-weight: 700; color: var(--ink); }
+    .salary-table tbody tr:hover { background: var(--bg); }
+
+    /* ─── ARTICLE ─── */
+    .article-section {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0;
+    }
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 48px;
+      align-items: start;
+    }
+    .article-body { font-size: 16px; line-height: 1.78; color: var(--text); }
+    .article-body h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 2.8vw, 34px);
+      line-height: 1.12;
+      color: var(--ink);
+      margin-bottom: 18px;
+    }
+    .article-body h3 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 18px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin: 30px 0 10px;
+    }
+    .article-body p { margin-bottom: 16px; }
+    .article-body strong { color: var(--ink); font-weight: 800; }
+
+    .article-aside {
+      position: sticky;
+      top: 88px;
+      display: grid;
+      gap: 10px;
+    }
+    .aside-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .aside-card strong {
+      display: block;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .aside-card span { font-size: 13px; color: var(--muted); line-height: 1.5; font-weight: 600; }
+    .aside-card.accent { background: #fffbeb; border-color: #fde68a; }
+    .aside-card.accent strong { color: var(--amber); }
+
+    /* ─── FAQ ─── */
+    .faq-section { padding: 64px 0; }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+    .faq-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color .18s;
+    }
+    .faq-item[open] { border-color: var(--primary); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      line-height: 1.35;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-xs);
+      background: var(--primary-50);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      margin-top: 1px;
+      transition: background .15s, color .15s;
+    }
+    .faq-item[open] .faq-icon { background: var(--primary); color: #fff; }
+    .faq-body {
+      padding: 0 20px 18px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ─── GUIDE: HOW TO USE ─── */
+    .howto-section {
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 0;
+    }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--primary-50);
+      color: var(--primary);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .step-card h3 { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+    .step-card p { font-size: 13.5px; line-height: 1.65; color: var(--muted); font-weight: 600; }
+
+    /* ─── CTA ─── */
+    .cta-section { padding: 72px 0 88px; }
+    .cta-card {
+      background: var(--ink);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 52px 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-eyebrow { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: #fbbf24; margin-bottom: 12px; }
+    .cta-card h2 {
+      font-family: 'Unbounded', sans-serif;
+      font-size: clamp(22px, 3vw, 38px);
+      line-height: 1.1;
+      max-width: 640px;
+      margin-bottom: 14px;
+    }
+    .cta-card p { color: rgba(255,255,255,.68); font-size: 15.5px; line-height: 1.6; max-width: 560px; }
+    .cta-actions { display: flex; flex-direction: column; gap: 10px; min-width: 200px; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .cta-btn-primary { background: #fbbf24; color: var(--ink); }
+    .cta-btn-primary:hover { background: #f59e0b; transform: translateY(-1px); }
+    .cta-btn-outline { border: 1.5px solid rgba(255,255,255,.24); color: #fff; }
+    .cta-btn-outline:hover { background: rgba(255,255,255,.08); }
+
+    .related-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .related-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      height: 38px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      background: var(--surface);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-2);
+      transition: border-color .15s, color .15s;
+    }
+    .related-links a:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* Spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--primary-100);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .is-loading .spinner { display: block; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .calc-body { grid-template-columns: 1fr; }
+      .calc-inputs { border-right: none; border-bottom: 1px solid var(--border); }
+      .prof-lookup-body { grid-template-columns: 1fr; }
+      .prof-inputs { border-right: none; border-bottom: 1px solid var(--border); }
+      .article-layout { grid-template-columns: 1fr; }
+      .article-aside { position: static; grid-template-columns: repeat(3, 1fr); }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .cta-card { grid-template-columns: 1fr; padding: 36px; }
+      .cta-actions { flex-direction: row; flex-wrap: wrap; }
+    }
+    @media (max-width: 680px) {
+      .calc-inputs, .calc-results { padding: 20px; }
+      .prof-inputs, .prof-result { padding: 20px; }
+      .inline-fields { grid-template-columns: 1fr; }
+      .level-tabs { grid-template-columns: 1fr 1fr; }
+      .calc-tabs { overflow-x: auto; }
+      .tab-btn { font-size: 13px; padding: 10px 14px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .section-note { text-align: left; max-width: none; }
+      .article-aside { grid-template-columns: 1fr; }
+      .cta-card { padding: 28px 22px; }
+      .cta-actions { flex-direction: column; }
+      .prof-meta-grid { grid-template-columns: 1fr; }
+      .source-strip { padding: 12px 20px; }
+    }
+    @media (max-width: 420px) {
+      .container { width: calc(100% - 24px); }
+      .result-block-value { font-size: 24px; }
+      .prof-median { font-size: 26px; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+{% include 'agencies/_header.html' with back_link=True %}
+
+<main>
+
+  <!-- ═══ PAGE TOP ═══ -->
+  <div class="page-top">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="/">Главная</a>
+        <span class="sep">/</span>
+        <span>Калькулятор зарплаты</span>
+      </nav>
+      <h1>Калькулятор зарплаты 2026 — НДФЛ и сумма на руки</h1>
+      <p class="page-desc">Рассчитайте зарплату на руки онлайн: укажите оклад или желаемую сумму, выберите ставку НДФЛ и месяц. Учёт прогрессивной шкалы 2026 и неполного месяца.</p>
+      <div class="trust-strip">
+        <div class="trust-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Прогрессивная шкала 13–22%
+        </div>
+        <div class="trust-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Производственный календарь 2026
+        </div>
+        <div class="trust-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Расчёт мгновенно, без регистрации
+        </div>
+        <div class="trust-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          50+ профессий в HR-нише
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ NDFL CALCULATOR ═══ -->
+  <section class="ndfl-section" aria-labelledby="calc-heading">
+    <div class="container">
+      <div class="calc-card">
+
+        <!-- TABS -->
+        <div class="calc-tabs" role="tablist" aria-label="Режим расчёта">
+          <button class="tab-btn active" data-mode="from-gross" role="tab" aria-selected="true">Из оклада (до налогов)</button>
+          <button class="tab-btn" data-mode="from-net" role="tab" aria-selected="false">Из суммы на руки</button>
+        </div>
+
+        <!-- BODY -->
+        <div class="calc-body">
+
+          <!-- LEFT: INPUTS -->
+          <div class="calc-inputs">
+            <div class="field-group">
+              <label class="field-label" id="salary-label" for="salary-input">Оклад до вычета НДФЛ, ₽</label>
+              <input type="number" id="salary-input" class="field-input" placeholder="50 000" min="0" step="1000" inputmode="numeric" autocomplete="off">
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="ndfl-rate">Ставка НДФЛ</label>
+              <select id="ndfl-rate" class="field-select">
+                {% for rate in ndfl_rates %}
+                <option value="{{ rate.value }}"{% if rate.value == 13 %} selected{% endif %}>{{ rate.label }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="inline-fields">
+              <div class="field-group" style="margin-bottom:0">
+                <label class="field-label" for="month-select">Месяц расчёта</label>
+                <select id="month-select" class="field-select">
+                  {% for m in ndfl_months %}
+                  <option value="{{ m.value }}" data-days="{{ m.working_days }}"{% if m.value == current_month %} selected{% endif %}>{{ m.label }} — {{ m.working_days }}&nbsp;р.д.</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="field-group" style="margin-bottom:0">
+                <label class="field-label" for="worked-days">Отработано дней <span class="optional">(если не весь месяц)</span></label>
+                <input type="number" id="worked-days" class="field-input" placeholder="Полный месяц" min="1" max="31" inputmode="numeric">
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: RESULTS -->
+          <div class="calc-results" aria-live="polite">
+            <div id="empty-state" class="empty-state">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              <p>Введите сумму<br>для расчёта</p>
+            </div>
+            <div id="result-display" class="result-display" hidden>
+              <div class="result-block is-net">
+                <div class="result-block-label">На руки</div>
+                <div class="result-block-value" id="r-net">—</div>
+                <div class="result-block-sub" id="r-net-sub"></div>
+              </div>
+              <div class="result-block is-ndfl">
+                <div class="result-block-label">НДФЛ (<span id="r-rate-label">13%</span>)</div>
+                <div class="result-block-value" id="r-ndfl">—</div>
+              </div>
+              <div class="result-block is-gross">
+                <div class="result-block-label">Начислено работодателем</div>
+                <div class="result-block-value" id="r-gross">—</div>
+              </div>
+              <div class="breakdown">
+                <div class="breakdown-title">Как посчитано</div>
+                <div id="breakdown-content" class="breakdown-list"></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /calc-body -->
+      </div><!-- /calc-card -->
+    </div>
+  </section>
+
+  <!-- ═══ PROFESSION SALARY LOOKUP ═══ -->
+  <section class="profession-section" id="profession-lookup" aria-labelledby="prof-heading">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Данные HR Rating · 2026</div>
+          <h2 class="section-title" id="prof-heading">Зарплата по профессии в Москве</h2>
+        </div>
+        <p class="section-note">Медианные вилки по 50+ специальностям в HR. Влияет отрасль, уровень и город.</p>
+      </div>
+
+      <div class="prof-lookup-card">
+        <div class="prof-lookup-body">
+
+          <!-- INPUTS -->
+          <div class="prof-inputs">
+            <div class="field-group">
+              <label class="field-label" for="profession-input">Профессия</label>
+              <input id="profession-input" class="field-input" name="profession" list="profession-list"
+                     value="{{ result.profession }}" autocomplete="off" placeholder="Начните вводить…">
+              <datalist id="profession-list">
+                {% for item in professions %}<option value="{{ item.name }}">{% endfor %}
+              </datalist>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label" id="level-label">Уровень опыта</span>
+              <div class="level-tabs" role="radiogroup" aria-labelledby="level-label">
+                {% for level in levels %}
+                <label class="level-tab">
+                  <input type="radio" name="prof-level" value="{{ level.key }}"{% if level.key == result.level %} checked{% endif %}>
+                  <span>{{ level.label }}</span>
+                </label>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="inline-fields">
+              <div class="field-group" style="margin-bottom:0">
+                <label class="field-label" for="industry-select">Отрасль</label>
+                <select id="industry-select" class="field-select" name="industry">
+                  {% for industry in industries %}
+                  <option value="{{ industry.key }}"{% if industry.key == result.industry %} selected{% endif %}>{{ industry.label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="field-group" style="margin-bottom:0">
+                <label class="field-label" for="city-select">Город</label>
+                <select id="city-select" class="field-select" name="city">
+                  {% for city in cities %}
+                  <option value="{{ city.key }}"{% if city.key == result.city %} selected{% endif %}>{{ city.label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESULT -->
+          <div class="prof-result" aria-live="polite">
+            <div id="prof-result-inner">
+              <div class="prof-result-kicker">Зарплатный ориентир</div>
+              <div class="prof-result-name" id="prof-result-name">{{ result.profession }} · {{ result.level_label }}</div>
+              <div class="prof-median" id="prof-median">{{ result.median_display }}</div>
+              <div class="prof-range" id="prof-range">Вилка: {{ result.range_display }}</div>
+              <div class="prof-meta-grid">
+                <div class="prof-meta-item">
+                  <div class="prof-meta-label">Город</div>
+                  <div class="prof-meta-value" id="prof-city">{{ result.city_label }}</div>
+                </div>
+                <div class="prof-meta-item">
+                  <div class="prof-meta-label">Отрасль</div>
+                  <div class="prof-meta-value" id="prof-industry">{{ result.industry_label }}</div>
+                </div>
+                <div class="prof-meta-item" style="grid-column: 1 / -1;">
+                  <div class="prof-meta-label">Сравнение с рынком</div>
+                  <div class="prof-meta-value" id="prof-comparison">{{ result.comparison }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /prof-lookup-body -->
+
+        <div class="source-strip">
+          <span>Источники:</span>
+          {% for source in source_links %}
+          <a href="{{ source.url }}" rel="nofollow noopener" target="_blank">{{ source.label }}</a>
+          {% endfor %}
+        </div>
+      </div><!-- /prof-lookup-card -->
+
+    </div>
+  </section>
+
+  <!-- ═══ SALARY TABLE ═══ -->
+  <section class="table-section" id="salary-table">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Быстрое сравнение</div>
+          <h2 class="section-title">Топ-20 профессий в HR — зарплатная таблица</h2>
+        </div>
+        <p class="section-note">Вилки для Москвы, руб./мес. Рендерится в HTML — доступно без JavaScript.</p>
+      </div>
+      <div class="salary-table-wrap">
+        <table class="salary-table">
+          <thead>
+            <tr>
+              <th>Профессия</th>
+              <th>Junior</th>
+              <th>Middle</th>
+              <th>Senior</th>
+              <th>Lead</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in top_salary_rows %}
+            <tr>
+              <td>{{ row.profession }}</td>
+              <td>{{ row.junior }}</td>
+              <td>{{ row.middle }}</td>
+              <td>{{ row.senior }}</td>
+              <td>{{ row.lead }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW TO USE ═══ -->
+  <section class="howto-section" id="howto">
+    <div class="container">
+      <div class="section-kicker">Инструкция</div>
+      <h2 class="section-title">Как пользоваться калькулятором зарплаты</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Выберите режим расчёта</h3>
+          <p>«Из оклада» — если известна сумма до налогов. «Из суммы на руки» — если хотите получать конкретную сумму чистыми и нужно узнать, какой оклад выставить.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Укажите сумму и ставку НДФЛ</h3>
+          <p>С 2026 года действует прогрессивная шкала: 13% до 2,4 млн ₽/год, 15% до 5 млн, 18% до 20 млн, 20% до 50 млн, 22% свыше 50 млн ₽/год.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Выберите месяц и дни</h3>
+          <p>Если сотрудник отработал не весь месяц, укажите количество фактически отработанных дней — начисление пересчитается пропорционально.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Читайте результат</h3>
+          <p>Калькулятор мгновенно показывает сумму на руки, НДФЛ и начисленную сумму с разбивкой по шагам. Пересчёт происходит при каждом изменении.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <h3>Проверьте рыночную вилку</h3>
+          <p>В разделе «Зарплата по профессии» укажите должность, уровень и отрасль, чтобы сравнить оклад с рыночными данными HR Rating по Москве.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">6</div>
+          <h3>Учёт взносов работодателя</h3>
+          <p>Помимо НДФЛ работодатель платит страховые взносы ~30% сверх оклада (ПФР, ОМС, ФСС). Фактическая стоимость сотрудника выше начисленной суммы.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ARTICLE ═══ -->
+  <section class="article-section" id="guide">
+    <div class="container">
+      <div class="article-layout">
+        <article class="article-body">
+          <h2>Как рассчитать зарплату на руки: формулы и примеры</h2>
+          <p>Расчёт зарплаты на руки зависит от ставки НДФЛ и того, отработал ли сотрудник месяц полностью. С 2026 года в России действует прогрессивная шкала НДФЛ с пятью ставками — от 13 до 22%, — поэтому одна и та же профессия может иметь разную налоговую нагрузку в зависимости от годового дохода.</p>
+          <h3>Формула расчёта «из оклада»</h3>
+          <p>Если известен оклад до налогов (начисленная сумма), расчёт выглядит так:<br>
+          <strong>НДФЛ = Оклад × Ставка</strong><br>
+          <strong>На руки = Оклад − НДФЛ</strong><br>
+          Пример: оклад 100 000 ₽, ставка 13% → НДФЛ = 13 000 ₽, на руки = 87 000 ₽.</p>
+          <h3>Формула расчёта «из суммы на руки»</h3>
+          <p>Если нужно выяснить, какой оклад выставить, чтобы сотрудник получал определённую сумму чистыми:<br>
+          <strong>Оклад = Сумма на руки ÷ (1 − Ставка)</strong><br>
+          <strong>НДФЛ = Оклад − Сумма на руки</strong><br>
+          Пример: хочет получать 87 000 ₽, ставка 13% → Оклад = 87 000 ÷ 0,87 = 100 000 ₽.</p>
+          <h3>Расчёт за неполный месяц</h3>
+          <p>Если сотрудник отработал не все рабочие дни месяца, начисление считается пропорционально:<br>
+          <strong>Начислено = Оклад × (Отработано / Рабочих дней)</strong><br>
+          Далее применяется ставка НДФЛ к пересчитанной сумме. Количество рабочих дней берётся из производственного календаря РФ на 2026 год.</p>
+          <h3>Прогрессивная шкала НДФЛ 2026</h3>
+          <p>В 2026 году действуют пять ставок: <strong>13%</strong> — на доход до 2 400 000 ₽ в год (200 000 ₽/мес), <strong>15%</strong> — до 5 000 000 ₽, <strong>18%</strong> — до 20 000 000 ₽, <strong>20%</strong> — до 50 000 000 ₽, <strong>22%</strong> — свыше. Калькулятор применяет выбранную ставку ко всей сумме — это упрощённый расчёт. Для точного исчисления используйте данные из расчётного листа и бухгалтерской программы.</p>
+          <h3>Страховые взносы работодателя</h3>
+          <p>Сотрудник получает на руки оклад минус НДФЛ. Но реальная стоимость работника для работодателя выше: помимо оклада он платит страховые взносы порядка 30% — в Пенсионный фонд, ФОМС и Социальный фонд. Они уплачиваются сверх оклада и не удерживаются из зарплаты. Для IT-аккредитованных компаний ставка снижена до 7,6%.</p>
+        </article>
+        <aside class="article-aside" aria-label="Ориентиры">
+          <div class="aside-card accent">
+            <strong>87 000 ₽</strong>
+            <span>на руки при окладе 100 000 ₽ и ставке НДФЛ 13%</span>
+          </div>
+          <div class="aside-card">
+            <strong>~30%</strong>
+            <span>страховые взносы работодателя сверх оклада — реальная стоимость сотрудника выше</span>
+          </div>
+          <div class="aside-card">
+            <strong>13–22%</strong>
+            <span>прогрессивная шкала НДФЛ в России с 2026 года</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">Частые вопросы о расчёте зарплаты и НДФЛ</h2>
+      <div class="faq-grid">
+        {% for question, answer in faq_items %}
+        <details class="faq-item"{% if forloop.first %} open{% endif %}>
+          <summary>{{ question }}<span class="faq-icon" aria-hidden="true">+</span></summary>
+          <div class="faq-body">{{ answer }}</div>
+        </details>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-card">
+        <div>
+          <div class="cta-eyebrow">Связка с рейтингом агентств</div>
+          <h2>Ищете специалиста с нужной зарплатной вилкой?</h2>
+          <p>Подберите HR-агентство, которое понимает рынок компенсаций и закрывает вакансии в бюджет без завышенных ожиданий.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="cta-btn cta-btn-primary" href="/#rating">
+            Смотреть рейтинг
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a class="cta-btn cta-btn-outline" href="/konstruktor-rezume/">Конструктор резюме</a>
+        </div>
+      </div>
+      <nav class="related-links" aria-label="Связанные материалы">
+        <a href="/#rating">Рейтинг HR-агентств Москвы</a>
+        <a href="/#methodology">Как оцениваем агентства</a>
+        <a href="/konstruktor-rezume/">Конструктор резюме</a>
+      </nav>
+    </div>
+  </section>
+
+</main>
+
+{% include 'agencies/_footer.html' %}
+
+{{ payload|json_script:"salary-data" }}
+<script>
+(function () {
+  'use strict';
+
+  /* ══════════════════════════════════════════════
+     NDFL CALCULATOR
+  ══════════════════════════════════════════════ */
+  let ndflMode = 'from-gross';
+
+  const salaryInput   = document.getElementById('salary-input');
+  const ndflRateSel   = document.getElementById('ndfl-rate');
+  const monthSel      = document.getElementById('month-select');
+  const workedDaysInp = document.getElementById('worked-days');
+  const emptyState    = document.getElementById('empty-state');
+  const resultDisplay = document.getElementById('result-display');
+
+  function fmt(n) {
+    return n.toLocaleString('ru-RU') + ' ₽';
+  }
+
+  function getMonthDays() {
+    const opt = monthSel.options[monthSel.selectedIndex];
+    return parseInt(opt.dataset.days, 10) || 22;
+  }
+
+  function calcFromGross(gross, rate, totalDays, worked) {
+    let actual = gross;
+    if (worked > 0 && worked < totalDays) actual = Math.round(gross * worked / totalDays);
+    const ndfl = Math.round(actual * rate / 100);
+    return { gross: actual, ndfl, net: actual - ndfl, fullGross: gross };
+  }
+
+  function calcFromNet(desired, rate, totalDays, worked) {
+    let actualNet = desired;
+    if (worked > 0 && worked < totalDays) actualNet = Math.round(desired * worked / totalDays);
+    const gross = Math.round(actualNet / (1 - rate / 100));
+    const ndfl  = gross - actualNet;
+    return { gross, ndfl, net: actualNet, fullGross: Math.round(desired / (1 - rate / 100)) };
+  }
+
+  function renderBreakdown(res, rate, inputAmt, totalDays, worked) {
+    const steps = [];
+    if (worked > 0 && worked < totalDays) {
+      const baseLabel = ndflMode === 'from-gross' ? 'Оклад (полный месяц)' : 'Желаемая сумма (полный месяц)';
+      steps.push(`${baseLabel}: ${fmt(inputAmt)}`);
+      steps.push(`Рабочих дней в месяце: ${totalDays}`);
+      steps.push(`Отработано дней: ${worked}`);
+      steps.push(`Начислено пропорционально: ${fmt(res.gross)}`);
+    } else {
+      steps.push(`Начислено (оклад): ${fmt(res.gross)}`);
+    }
+    steps.push(`НДФЛ ${rate}%: ${fmt(res.gross)} × ${rate}% = ${fmt(res.ndfl)}`);
+    steps.push(`На руки: ${fmt(res.gross)} − ${fmt(res.ndfl)} = ${fmt(res.net)}`);
+
+    document.getElementById('breakdown-content').innerHTML = steps.map((s, i) =>
+      `<div class="bd-step"><span class="bd-num">${i + 1}</span><span>${s}</span></div>`
+    ).join('');
+  }
+
+  function updateNDFL() {
+    const amount = parseInt(salaryInput.value, 10);
+    const rate   = parseInt(ndflRateSel.value, 10) || 13;
+    const total  = getMonthDays();
+    const worked = parseInt(workedDaysInp.value, 10) || 0;
+
+    if (!amount || amount <= 0) {
+      emptyState.hidden = false;
+      resultDisplay.hidden = true;
+      return;
+    }
+
+    let res;
+    if (ndflMode === 'from-gross') {
+      res = calcFromGross(amount, rate, total, worked);
+    } else {
+      res = calcFromNet(amount, rate, total, worked);
+    }
+
+    document.getElementById('r-net').textContent   = fmt(res.net);
+    document.getElementById('r-ndfl').textContent  = fmt(res.ndfl);
+    document.getElementById('r-gross').textContent = fmt(res.gross);
+    document.getElementById('r-rate-label').textContent = rate + '%';
+
+    const sub = document.getElementById('r-net-sub');
+    if (worked > 0 && worked < total) {
+      sub.textContent = `за ${worked} из ${total} рабочих дней`;
+    } else {
+      sub.textContent = '';
+    }
+
+    renderBreakdown(res, rate, amount, total, worked);
+
+    emptyState.hidden = true;
+    resultDisplay.hidden = false;
+  }
+
+  /* Tab switching */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      ndflMode = btn.dataset.mode;
+
+      const label = document.getElementById('salary-label');
+      if (ndflMode === 'from-gross') {
+        label.textContent = 'Оклад до вычета НДФЛ, ₽';
+        salaryInput.placeholder = '50 000';
+      } else {
+        label.textContent = 'Желаемая сумма на руки, ₽';
+        salaryInput.placeholder = '43 500';
+      }
+
+      salaryInput.value = '';
+      emptyState.hidden = false;
+      resultDisplay.hidden = true;
+    });
+  });
+
+  /* Auto-calculate on any change */
+  [salaryInput, ndflRateSel, monthSel, workedDaysInp].forEach(el => {
+    el.addEventListener('input', updateNDFL);
+    el.addEventListener('change', updateNDFL);
+  });
+
+  /* Faq icon toggle */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      const icon = item.querySelector('.faq-icon');
+      if (icon) icon.textContent = item.open ? '−' : '+';
+    });
+  });
+
+
+  /* ══════════════════════════════════════════════
+     PROFESSION SALARY LOOKUP
+  ══════════════════════════════════════════════ */
+  const profInput   = document.getElementById('profession-input');
+  const industrysel = document.getElementById('industry-select');
+  const citysel     = document.getElementById('city-select');
+  const API_URL     = "{% url 'salary_api' %}";
+  let profController = null;
+  let profTimer;
+
+  function updateProfResult(data) {
+    const r = data.result;
+    if (profInput) profInput.value = r.profession;
+    setText('prof-result-name', `${r.profession} · ${r.level_label}`);
+    setText('prof-median',  r.median_display);
+    setText('prof-range',   `Вилка: ${r.range_display}`);
+    setText('prof-city',    r.city_label);
+    setText('prof-industry', r.industry_label);
+    setText('prof-comparison', r.comparison);
+  }
+
+  function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function buildProfParams() {
+    const params = new URLSearchParams();
+    params.set('profession', profInput ? profInput.value : '');
+    const checked = document.querySelector('input[name="prof-level"]:checked');
+    params.set('level', checked ? checked.value : 'middle');
+    params.set('industry', industrysel ? industrysel.value : 'hr');
+    params.set('city', citysel ? citysel.value : 'moscow');
+    return params;
+  }
+
+  async function fetchProf() {
+    if (profController) profController.abort();
+    profController = new AbortController();
+    try {
+      const resp = await fetch(`${API_URL}?${buildProfParams()}`, {
+        headers: { Accept: 'application/json' },
+        signal: profController.signal,
+      });
+      if (!resp.ok) return;
+      const data = await resp.json();
+      updateProfResult(data);
+    } catch (e) {
+      if (e.name !== 'AbortError') {
+        const initial = JSON.parse(document.getElementById('salary-data').textContent);
+        updateProfResult(initial);
+      }
+    }
+  }
+
+  function scheduleProf() {
+    clearTimeout(profTimer);
+    profTimer = setTimeout(fetchProf, 320);
+  }
+
+  if (profInput) {
+    profInput.addEventListener('input', scheduleProf);
+    profInput.addEventListener('change', () => { clearTimeout(profTimer); fetchProf(); });
+  }
+  document.querySelectorAll('input[name="prof-level"]').forEach(r => {
+    r.addEventListener('change', () => { clearTimeout(profTimer); fetchProf(); });
+  });
+  if (industrysel) industrysel.addEventListener('change', () => { clearTimeout(profTimer); fetchProf(); });
+  if (citysel) citysel.addEventListener('change', () => { clearTimeout(profTimer); fetchProf(); });
+
+})();
+</script>
+</body>
+</html>
