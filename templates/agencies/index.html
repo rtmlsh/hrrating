@@ -105,6 +105,29 @@
   </script>
   {% endif %}
 
+  {% if city_page %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "HR Rating",
+        "item": "https://luchshie-hr-agentstva.pro/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ city_page.name|escapejs }}",
+        "item": "https://luchshie-hr-agentstva.pro/{{ city_page.slug }}/"
+      }
+    ]
+  }
+  </script>
+  {% endif %}
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap');
 
